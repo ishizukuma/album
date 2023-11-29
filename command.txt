@@ -1,5 +1,19 @@
-パッケージtext作成
-pip freeze > requirements.txt
+仮想環境の入り方
+cd venv_album\Scripts
+activate.bat
+cd ../album
+
+サーバーを動かす
+python manage.py runserver
+
+データベースにモデルの反映
+python manage.py makemigrations
+python manage.py migrate
+
 
 パッケージのインストール
+pip install ～
 pip install -r requirements.txt
+
+パッケージtext作成
+pip freeze > requirements.txt
