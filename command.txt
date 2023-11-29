@@ -1,0 +1,5 @@
+パッケージtext作成
+pip freeze > requirements.txt
+
+パッケージのインストール
+pip install -r requirements.txt
