@@ -15,7 +15,8 @@ python manage.py runserver
 python manage.py makemigrations
 python manage.py migrate
 
-
+インストーラーアップグレード
+python.exe -m pip install --upgrade pip
 パッケージのインストール
 pip install ～
 pip install -r requirements.txt
