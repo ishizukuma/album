@@ -1,4 +1,9 @@
-仮想環境の入り方
+仮想環境の入り方(vscode)
+cd ..\Scripts
+activate.bat
+cd ../album
+
+仮想環境の入り方(コマンドプロンプト)
 cd venv_album\Scripts
 activate.bat
 cd ../album
