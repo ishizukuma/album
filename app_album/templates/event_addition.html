@@ -1,3 +1,50 @@
 {% include 'header.html' %}
+<style>
+    #image-preview {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .preview-image {
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+    }
+</style>
 <h1>イベント写真の追加</h1>
+<body>
+    <form action="登録して画面をリセットするpy" method="post"　id="image-form" enctype="multipart/form-data">
+        <input type="text" name="ivent_tag">
+        <input type="file" name="images[]" id="image-input" multiple accept="image/*">
+        <input type="submit" value="登録">
+        {% comment %} <button type="button" onclick="submitForm()">登録</button> {% endcomment %}
+    </form>
+    <div id="image-preview"></div>
+
+    <script>
+        function handleFileSelect(event) {
+            const previewContainer = document.getElementById('image-preview');
+            previewContainer.innerHTML = ''; // プレビューをクリア
+
+            const files = event.target.files;
+            for (const file of files) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('preview-image');
+
+                    previewContainer.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // ファイルが選択されたらプレビューを更新
+        const imageInput = document.getElementById('image-input');
+        imageInput.addEventListener('change', handleFileSelect);
+    </script>
+</body>
 {% include 'footer.html' %}
