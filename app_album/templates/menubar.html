@@ -1,1 +1,38 @@
-<h1>メニューバー</h1>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static\css\styles.cs" />
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;メニュー</div>
+        <div class="user-icon">
+          <a href="#" class="user-icon">
+            <img src="static/images/User-Icon.png" width="35px" height="35px" />
+
+            <!-- #にプロフィール関係の処理が書いてあるものを追加 -->
+            <!-- ここにユーザーアイコンの画像やアイコンの処理を追加 -->
+          </a>
+        </div>
+        <a href="#" class="logout-btn">ログアウト</a>
+        <!-- #にログアウト関係の処理が書いてあるものを追加 -->
+      </div>
+
+      <div class="menu-content" id="menuContent">
+        <a href="#">作成メニュー</a>
+        <a href="#">連絡</a>
+        <a href="#">閲覧</a>
+      </div>
+
+      <script>
+        function toggleMenu() {
+          var menuContent = document.getElementById("menuContent");
+          menuContent.style.display =
+            menuContent.style.display === "block" ? "none" : "block";
+        }
+      </script>
+    </header>
+  </body>
+</html>
