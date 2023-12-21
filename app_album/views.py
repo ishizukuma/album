@@ -50,6 +50,9 @@ class ViewView(generic.TemplateView):
 class NoticeView(generic.TemplateView):
     template_name = "notice.html"
 
+class Password_ResetView(generic.TemplateView):
+    template_name = "password_reset.html"
+    
 class Password_changeView(generic.TemplateView):
     template_name = "password_change.html"
 
