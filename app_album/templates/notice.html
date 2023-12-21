@@ -1,3 +1,24 @@
 {% include 'header.html' %}
 <h1>お知らせ</h1>
+    <input type="text" id="messageInput" name="message">
+    <input type="button" value="送信" onclick="sendMessage()">
+
+    <div id="chatBox"></div>
+
+    <script>
+        function sendMessage() {
+            var messageInput = document.getElementById('messageInput');
+            var chatBox = document.getElementById('chatBox');
+
+            // 入力が空でない場合のみ処理を行う
+            if (messageInput.value.trim() !== "") {
+                // チャットボックスに新しいメッセージを追加
+                chatBox.innerHTML += '<p>お知らせ: ' + messageInput.value + '</p>';
+
+                // メッセージ入力欄をクリア
+                messageInput.value = '';
+            }
+        }
+    </script>
+
 {% include 'footer.html' %}
