@@ -1,10 +1,10 @@
 {% include 'header.html' %}
 <div class="student_registration">
   <h1>生徒情報登録</h1>
-  <!--<p>
+  <p>
     アイコン写真<br />
     <input type="file" name="profile_picture" accept="image/*" />
-  </p>-->
+  </p>
   <p>
     名前<br />
     <input type="text" name="student_name" />
@@ -27,13 +27,20 @@
     />
   </p>
   <p>
-    パスワード確認<br />
-    <input
-      type="password"
-      id="passwordConfirmField"
-      name="password_confirm"
-      placeholder="パスワード確認"
-    />
+    クラス<br />
+    <input type="number" name="class" />
+  </p>
+  <p>
+    出席番号<br />
+    <input type="number" name="attendance_number" />
+  </p>
+  <p>
+    ひとこと<br />
+    <input type="text" name="comment" />
+  </p>
+  <p>
+    卒業年度<br />
+    <input type="number" name="graduation_year" />
   </p>
 </div>
 {% include 'footer.html' %}
