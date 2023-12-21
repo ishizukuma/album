@@ -1,3 +1,58 @@
 {% include 'header.html' %}
-<h1>login page</h1>
+
+<div class="login_user">
+    <h2>ログイン</h2>
+    <form action="Login.action" method="post">
+        <p>
+            学校コード<br>
+            <input type="number" name="school_code">
+        </p>
+        <p>
+            メールアドレス<br>
+            <input type="email" name="mailaddress">
+        </p>
+        <p>
+        <div class="password-container">
+        パスワード<br>
+            <input type="password" id="passwordField" name="password" placeholder="英大小数文字含む8以上16以下">
+            <div class="password-icon-container">
+                <img src="static/images/icons8-閉じた目-50.png" id="togglePassword"
+                onclick="togglePasswordVisibility()" alt="Toggle Password Visibility">
+                <img src="static/images/icons8-目に見える-50.png" id="togglePasswordVisible"
+                    onclick="togglePasswordVisibility()" alt="Toggle Password Visibility"
+                    style="display: none;">
+            </div>
+        </div>
+
+        <script>
+            function togglePasswordVisibility() {
+                var passwordField = document.getElementById("passwordField");
+                var toggleVisibleIcon = document.getElementById("togglePasswordVisible");
+                var toggleInvisibleIcon = document.getElementById("togglePassword");
+
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    toggleVisibleIcon.style.display = "block";
+                    toggleInvisibleIcon.style.display = "none";
+
+                    // 1秒後に元のアイコンに戻す
+                    setTimeout(function () {
+                        passwordField.type = "password";
+                        toggleVisibleIcon.style.display = "none";
+                        toggleInvisibleIcon.style.display = "block";
+                    }, 1000);
+                } else {
+                    passwordField.type = "password";
+                    toggleVisibleIcon.style.display = "none";
+                    toggleInvisibleIcon.style.display = "block";
+                }
+            }
+        </script>
+        </p>
+
+        <p><input type="submit" value="ログイン"></p>
+    </form>
+    <p><a href="registration_select">新規登録はこちら</a></p>
+</div>
+
 {% include 'footer.html' %}

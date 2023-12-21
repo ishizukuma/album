@@ -1,0 +1,221 @@
+/*-----------------header.css------------------------*/
+body,
+.header_h1,
+.header {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: black;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  text-align: left;
+  padding: 20px 0;
+  background-color: #c9c7c7;
+}
+
+.header_h1 {
+  font-size: 2em;
+  line-height: 1;
+}
+
+/*------------------- menubar.css -----------------------*/
+
+.navbar {
+  margin: 0;
+  padding: 0;
+  background-color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.menu-icon .user-icon .logout-btn {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 25px;
+  margin: 0 10px;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  float: left;
+}
+
+.user-icon {
+  display: flex;
+  margin-left: auto;
+}
+
+.user-icon a {
+  margin-right: 10px;
+}
+
+.logout-btn {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.logout-btn:hover {
+  background-color: #555;
+  color: white;
+}
+
+.menu-content {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  background-color: #333;
+  padding: 10px;
+  z-index: 1;
+}
+
+.menu-content a {
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  margin: 4px;
+  display: block;
+}
+
+.menu-content a:hover {
+  background-color: #555;
+}
+
+.menu-content a,
+.logout-btn {
+  text-align: left;
+}
+
+/* メディアクエリ: 小さい画面に対するスタイル調整 */
+@media screen and (max-width: 1200px) {
+  .navbar {
+    padding: 5px;
+  }
+
+  .menu-icon .user-icon .logout-btn {
+    padding: 15px;
+    font-size: 16px;
+  }
+
+  .logout-btn {
+    padding: 5px;
+    font-size: 16px;
+  }
+}
+
+/*---------------- login_user.css -------------------*/
+.login_user {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #ddd; /* 薄い灰色のボーダー */
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を付ける */
+}
+
+.login_user form {
+  text-align: left;
+}
+
+/* 入力フィールドのスタイル */
+.login_user input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border: 1px solid #ddd; /* 薄い灰色のボーダー */
+  border-radius: 3px;
+}
+
+/* ボタンのスタイル */
+.login_user input[type="submit"] {
+  background-color: #f90; /* オレンジ色の背景 */
+  color: white; /* 白色の文字 */
+  cursor: pointer;
+}
+
+/* リンクのスタイル */
+.login_user a {
+  text-decoration: none;
+  color: #0066c0; /* リンクの青色 */
+}
+
+/* ヘッダのスタイル */
+.login_user h2 {
+  font-size: 30px;
+  color: #333; /* 黒色の文字 */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 画像のスタイル */
+.login_user img {
+  width: 30px; /* 画像の幅 */
+  height: 30px; /* 画像の高さ */
+  margin-right: 10px; /* 画像とテキストの間隔 */
+  cursor: pointer;
+  transition: transform 0.5s; /* アイコン変化のアニメーション */
+  position: relative;
+}
+
+/* 画像ホバー時のスタイル */
+.login_user img:hover {
+  transform: scale(1.2); /* ホバー時にアイコンを拡大 */
+}
+
+.login_user .password-container {
+  position: relative;
+}
+
+.login_user .password-icon-container {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.login_user .password-icon-container img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.5s;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/*---------------- footer.css -------------------*/
+/* スタイルのリセット */
+body,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+footer {
+  background-color: #333; /* フッターの背景色 */
+  color: white; /* フッターの文字色 */
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

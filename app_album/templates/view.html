@@ -1,3 +1,9 @@
 {% include 'header.html' %}
 <h1>閲覧</h1>
+<h2><!--学校名年度をデータベースから取り出す--></h2>
+{% for photo in photos %}
+        <img src="{{ photo.image.url }}" alt="Photo">
+    {% endfor %}
+    <!--cssとjavascriptで10か20枚ごとにページングする予定-->
+    <!---->
 {% include 'footer.html' %}

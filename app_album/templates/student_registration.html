@@ -1,3 +1,46 @@
 {% include 'header.html' %}
-<h1>生徒情報登録</h1>
+<div class="student_registration">
+  <h1>生徒情報登録</h1>
+  <p>
+    アイコン写真<br />
+    <input type="file" name="profile_picture" accept="image/*" />
+  </p>
+  <p>
+    名前<br />
+    <input type="text" name="student_name" />
+  </p>
+  <p>
+    学校コード<br />
+    <input type="number" name="school_code" />
+  </p>
+  <p>
+    メールアドレス<br />
+    <input type="email" name="mailaddress" />
+  </p>
+  <p>
+    パスワード<br />
+    <input
+      type="password"
+      id="passwordField"
+      name="password"
+      placeholder="英大小数文字含む8以上16以下"
+    />
+  </p>
+  <p>
+    クラス<br />
+    <input type="number" name="class" />
+  </p>
+  <p>
+    出席番号<br />
+    <input type="number" name="attendance_number" />
+  </p>
+  <p>
+    ひとこと<br />
+    <input type="text" name="comment" />
+  </p>
+  <p>
+    卒業年度<br />
+    <input type="number" name="graduation_year" />
+  </p>
+</div>
 {% include 'footer.html' %}
