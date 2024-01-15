@@ -1,3 +1,4 @@
+{% load static %}
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -9,8 +10,8 @@
       <div class="navbar">
         <div class="menu-icon" onclick="toggleMenu()">&#9776;メニュー</div>
         <div class="user-icon">
-          <a href="#" class="user-icon">
-            <img src="static\images\User-Icon.png" width="35px" height="35px" />
+          <a href="../profile" class="user-icon">
+            <img src="{% static 'images\User-Icon.png' %}" width="35px" height="35px" alt="Image"/>
 
             <!-- #にプロフィール関係の処理が書いてあるものを追加 -->
             <!-- ここにユーザーアイコンの画像やアイコンの処理を追加 -->
@@ -21,9 +22,9 @@
       </div>
 
       <div class="menu-content" id="menuContent">
-        <a href="#">作成メニュー</a>
-        <a href="#">連絡</a>
-        <a href="#">閲覧</a>
+        <a href="../create_menu">作成メニュー</a>
+        <a href="../notice">連絡</a>
+        <a href="../view">閲覧</a>
       </div>
 
       <script>
