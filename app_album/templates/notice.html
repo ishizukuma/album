@@ -1,4 +1,5 @@
 {% include 'header.html' %}
+{% include 'menubar.html' %}
 <h1>お知らせ</h1>
     <input type="text" id="messageInput" name="message">
     <input type="button" value="送信" onclick="sendMessage()">
@@ -13,7 +14,7 @@
             // 入力が空でない場合のみ処理を行う
             if (messageInput.value.trim() !== "") {
                 // チャットボックスに新しいメッセージを追加
-                chatBox.innerHTML += '<p>お知らせ: ' + messageInput.value + '</p>';
+                chatBox.innerHTML += '<p>匿名: ' + messageInput.value + '</p>';
 
                 // メッセージ入力欄をクリア
                 messageInput.value = '';

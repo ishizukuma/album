@@ -1,9 +1,8 @@
+{% load static %}
 {% include 'header.html' %}
+{% include 'menubar.html' %}
 <h1>閲覧</h1>
 <h2><!--学校名年度をデータベースから取り出す--></h2>
-{% for photo in photos %}
-        <img src="{{ photo.image.url }}" alt="Photo">
-    {% endfor %}
-    <!--cssとjavascriptで10か20枚ごとにページングする予定-->
-    <!---->
+<img src="{% static 'images/User-Icon.png' %}" alt="Image">
+<img src="{% static 'images/icons8-閉じた目-50.png' %}" alt="Image">
 {% include 'footer.html' %}
