@@ -1,6 +1,10 @@
 # from django.shortcuts import render
 from django.views import generic
 
+from django.shortcuts import render
+from django.views import View
+from .models import Message
+
 # スタート
 class IndexView(generic.TemplateView):
     template_name = "login.html"
@@ -47,8 +51,27 @@ class ProfileView(generic.TemplateView):
 class ViewView(generic.TemplateView):
     template_name = "view.html"
 
-class NoticeView(generic.TemplateView):
+from .forms import MessageForm
+
+class NoticeView(View):
     template_name = "notice.html"
+
+    def get(self, request, *args, **kwargs):
+        # データベースからメッセージを取得
+        messages = Message.objects.all()
+        form = MessageForm()
+        return render(request, self.template_name, {'messages': messages, 'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = MessageForm(request.POST)
+
+        if form.is_valid():
+            # メッセージをデータベースに保存
+            Message.objects.create(content=form.cleaned_data['message'])
+
+        # データベースから更新されたメッセージを取得
+        messages = Message.objects.all()
+        return render(request, self.template_name, {'messages': messages, 'form': form})
 
 class Password_ResetView(generic.TemplateView):
     template_name = "password_reset.html"

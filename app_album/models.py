@@ -17,3 +17,10 @@ class Photo(models.Model):
 
     class Meta:
         db_table = 'photo'  # テーブル名を適切に設定してください
+
+class Message(models.Model):
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.content
