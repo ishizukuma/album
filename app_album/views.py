@@ -1,5 +1,8 @@
 # from django.shortcuts import render
 from django.views import generic
+from django.views import View
+from django.shortcuts import render
+from .models import Photo
 
 from django.shortcuts import render
 from django.views import View
@@ -12,13 +15,13 @@ class IndexView(generic.TemplateView):
 # 新規登録
 class Registration_selectView(generic.TemplateView):
     template_name = "registration_select.html"
-    
+
 class Teacher_registrationView(generic.TemplateView):
     template_name = "teacher_registration.html"
-    
+
 class Student_registrationView(generic.TemplateView):
     template_name = "student_registration.html"
-    
+
 class Mail_sendView(generic.TemplateView):
     template_name = "mail_send.html"
 
@@ -50,6 +53,19 @@ class ProfileView(generic.TemplateView):
 
 class ViewView(generic.TemplateView):
     template_name = "view.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # 検索クエリがある場合は絞り込み
+        search_query = self.request.GET.get('search', '')
+        photos = Photo.objects.filter(EVENT_NAME__icontains=search_query)
+
+        # EVENT_NAMEの一覧を取得して重複を排除
+        event_names = Photo.objects.values_list('EVENT_NAME', flat=True).distinct()
+
+        context['photos'] = photos
+        context['event_names'] = event_names
+        return context
 
 from .forms import MessageForm
 
@@ -75,7 +91,7 @@ class NoticeView(View):
 
 class Password_ResetView(generic.TemplateView):
     template_name = "password_reset.html"
-    
+
 class Password_changeView(generic.TemplateView):
     template_name = "password_change.html"
 
