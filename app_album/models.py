@@ -1,7 +1,7 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
-
 class Photo(models.Model):
     IMAGE_TYPE_CHOICES = (
         (1, '個人写真'),
@@ -14,13 +14,15 @@ class Photo(models.Model):
     IMAGE_TYPE = models.IntegerField(choices=IMAGE_TYPE_CHOICES, blank=False, null=False)
     EVENT_NAME = models.CharField(max_length=50, blank=True, null=True)
     ALBUM_ID = models.IntegerField(blank=True, null=True)
+    CLASS_NAME = models.CharField(max_length=20, blank=True, null=True)  # 追加
 
     class Meta:
-        db_table = 'photo'  # テーブル名を適切に設定してください
+        db_table = 'photo'
+
 
 class Message(models.Model):
     content = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(default=datetime.now, editable=False)
 
     def __str__(self):
         return self.content

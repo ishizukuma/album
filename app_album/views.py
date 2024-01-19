@@ -8,6 +8,10 @@ from django.shortcuts import render
 from django.views import View
 from .models import Message
 
+from django.shortcuts import render, redirect
+from .models import Message
+from .forms import MessageForm
+
 # スタート
 class IndexView(generic.TemplateView):
     template_name = "login.html"
@@ -53,6 +57,7 @@ class ProfileView(generic.TemplateView):
 
 class ViewView(generic.TemplateView):
     template_name = "view.html"
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -63,9 +68,29 @@ class ViewView(generic.TemplateView):
         # EVENT_NAMEの一覧を取得して重複を排除
         event_names = Photo.objects.values_list('EVENT_NAME', flat=True).distinct()
 
+        # CLASS_NAMEの一覧を取得して重複を排除
+        class_names = Photo.objects.values_list('CLASS_NAME', flat=True).distinct()
+
+        # ユーザーが選択したEVENT_NAMEとCLASS_NAMEの値を取得
+        selected_event_name = self.request.GET.get('event_search', '')
+        selected_class_name = self.request.GET.get('class_search', '')
+
+        # イベント名で絞り込み
+        if selected_event_name:
+            photos = photos.filter(EVENT_NAME=selected_event_name)
+
+        # クラス名で絞り込み
+        if selected_class_name:
+            photos = photos.filter(CLASS_NAME=selected_class_name)
+
         context['photos'] = photos
         context['event_names'] = event_names
+        context['class_names'] = class_names
+        context['selected_event_name'] = selected_event_name
+        context['selected_class_name'] = selected_class_name
+
         return context
+
 
 from .forms import MessageForm
 
@@ -88,6 +113,26 @@ class NoticeView(View):
         # データベースから更新されたメッセージを取得
         messages = Message.objects.all()
         return render(request, self.template_name, {'messages': messages, 'form': form})
+
+
+
+def notice_view(request):
+    if request.method == 'GET':
+        # データベースからメッセージを取得
+        messages = Message.objects.all()
+        form = MessageForm()
+        return render(request, 'notice.html', {'messages': messages, 'form': form})
+
+    elif request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            # メッセージをデータベースに保存
+            Message.objects.create(content=form.cleaned_data['message'])
+
+        # データベースから更新されたメッセージを取得
+        messages = Message.objects.all()
+        return render(request, 'notice.html', {'messages': messages, 'form': form})
+
 
 class Password_ResetView(generic.TemplateView):
     template_name = "password_reset.html"

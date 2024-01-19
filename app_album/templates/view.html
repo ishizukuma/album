@@ -43,20 +43,36 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
 </head>
-{% include 'menubar.html' %}
 {% include 'header.html' %}
+{% include 'menubar.html' %}
 <h1>閲覧</h1>
 <form method="get" action="{% url 'app_album:view' %}">
-  <select name="search" placeholder="イベント名を選択してください">
+  <!-- EVENT_NAMEのセレクトボックス -->
+  <label for="event_search">イベント名:</label>
+  <select name="event_search">
     <option value="">すべてのイベント</option>
     {% for event_name in event_names %}
-      <option value="{{ event_name }}" {% if request.GET.search == event_name %}selected{% endif %}>
+      <option value="{{ event_name }}" {% if event_name == selected_event_name %}selected{% endif %}>
         {{ event_name }}
       </option>
     {% endfor %}
   </select>
+
+  <!-- CLASS_NAMEのセレクトボックス -->
+  <label for="class_search">クラス名:</label>
+  <select name="class_search">
+    <option value="">すべてのクラス</option>
+    {% for class_name in class_names %}
+      <option value="{{ class_name }}" {% if class_name == selected_class_name %}selected{% endif %}>
+        {{ class_name }}
+      </option>
+    {% endfor %}
+  </select>
+
   <button type="submit">検索</button>
 </form>
+
+
 <div class="container">
     {% for photo in photos %}
         <div class="item">
