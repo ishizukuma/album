@@ -1,6 +1,9 @@
 from django.db import models
+from storages.backends.s3boto3 import S3Boto3Storage
 
-# Create your models here.
+class S3MediaStorage(S3Boto3Storage):
+    location = 'media'
+    file_overwrite = False
 
 class Photo(models.Model):
     IMAGE_TYPE_CHOICES = (
@@ -13,10 +16,14 @@ class Photo(models.Model):
     IMAGE_NAME = models.CharField(max_length=255, blank=False, null=False)
     IMAGE_TYPE = models.IntegerField(choices=IMAGE_TYPE_CHOICES, blank=False, null=False)
     EVENT_NAME = models.CharField(max_length=50, blank=True, null=True)
+    IMAGE_FILE = models.ImageField(upload_to='static/images/', storage=S3MediaStorage(), null=True)
     ALBUM_ID = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        db_table = 'photo'  # テーブル名を適切に設定してください
+        db_table = 'photo'
+
+class S3Model(models.Model):
+    IMAGE_FILE = models.ImageField(upload_to='static/images/', storage=S3MediaStorage(), null=True)
 
 class Message(models.Model):
     content = models.TextField()

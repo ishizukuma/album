@@ -3,15 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="static\css\styles.css" />
+    <link rel="stylesheet" type="text/css" href="https://sotsukenalbum.s3.amazonaws.com/media/static/css/styles.css">
   </head>
   <body>
     <header>
       <div class="navbar">
-        <div class="menu-icon" onclick="toggleMenu()">&#9776;メニュー</div>
+        <div class="menu-icon" onclick="toggleMenu()"><img src="{% static 'images\メニューマーク.jpg' %}" width="35px" height="35px" alt="Image"></div>
+        <div class="header">
+        <h1 class="header_h1"><a href="../top">卒アル作成サイトだよ♡</a></h1>
+      </div>
         <div class="user-icon">
           <a href="../profile" class="user-icon">
-            <img src="{% static 'images\User-Icon.png' %}" width="35px" height="35px" alt="Image"/>
+            <img src="{% static 'images\User-Icon.jpg' %}" width="35px" height="35px" alt="Image"/>
 
             <!-- #にプロフィール関係の処理が書いてあるものを追加 -->
             <!-- ここにユーザーアイコンの画像やアイコンの処理を追加 -->
@@ -22,7 +25,7 @@
       </div>
 
       <div class="menu-content" id="menuContent">
-        <a href="../create_menu">作成メニュー</a>
+        <a href="../year_input">作成メニュー</a>
         <a href="../notice">連絡</a>
         <a href="../view">閲覧</a>
       </div>

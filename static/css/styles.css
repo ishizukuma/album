@@ -4,6 +4,7 @@ body,
 .header {
   margin: 0;
   padding: 0;
+
 }
 
 body {
@@ -14,7 +15,7 @@ body {
 .header {
   text-align: left;
   padding: 20px 0;
-  background-color: #c9c7c7;
+  color: #c9c7c7;
 }
 
 .header_h1 {
@@ -27,11 +28,11 @@ body {
 .navbar {
   margin: 0;
   padding: 0;
-  background-color: #333;
+  background-color: pink;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  color: black;
 }
 
 .menu-icon .user-icon .logout-btn {
@@ -61,7 +62,7 @@ body {
   border: none;
   border-radius: 5px;
   margin-bottom: 10px;
-  color: white;
+  color: black;
   text-decoration: none;
 }
 
@@ -124,11 +125,13 @@ body {
   transform: translate(-50%, -50%);
   width: 400px;
   padding: 20px;
-  border: 1px solid #ddd; /* 薄い灰色のボーダー */
+  border: 1px solid #ddd;
+  /* 薄い灰色のボーダー */
   border-radius: 5px;
   box-sizing: border-box;
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を付ける */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* 影を付ける */
 }
 
 .login_user form {
@@ -141,44 +144,54 @@ body {
   padding: 10px;
   margin: 10px 0;
   box-sizing: border-box;
-  border: 1px solid #ddd; /* 薄い灰色のボーダー */
+  border: 1px solid #ddd;
+  /* 薄い灰色のボーダー */
   border-radius: 3px;
 }
 
 /* ボタンのスタイル */
 .login_user input[type="submit"] {
-  background-color: #f90; /* オレンジ色の背景 */
-  color: white; /* 白色の文字 */
+  background-color: #f90;
+  /* オレンジ色の背景 */
+  color: white;
+  /* 白色の文字 */
   cursor: pointer;
 }
 
 /* リンクのスタイル */
 .login_user a {
   text-decoration: none;
-  color: #0066c0; /* リンクの青色 */
+  color: #0066c0;
+  /* リンクの青色 */
 }
 
 /* ヘッダのスタイル */
 .login_user h2 {
   font-size: 30px;
-  color: #333; /* 黒色の文字 */
+  color: #333;
+  /* 黒色の文字 */
   text-align: center;
   margin-bottom: 20px;
 }
 
 /* 画像のスタイル */
 .login_user img {
-  width: 30px; /* 画像の幅 */
-  height: 30px; /* 画像の高さ */
-  margin-right: 10px; /* 画像とテキストの間隔 */
+  width: 30px;
+  /* 画像の幅 */
+  height: 30px;
+  /* 画像の高さ */
+  margin-right: 10px;
+  /* 画像とテキストの間隔 */
   cursor: pointer;
-  transition: transform 0.5s; /* アイコン変化のアニメーション */
+  transition: transform 0.5s;
+  /* アイコン変化のアニメーション */
   position: relative;
 }
 
 /* 画像ホバー時のスタイル */
 .login_user img:hover {
-  transform: scale(1.2); /* ホバー時にアイコンを拡大 */
+  transform: scale(1.2);
+  /* ホバー時にアイコンを拡大 */
 }
 
 .login_user .password-container {
@@ -211,8 +224,10 @@ p {
 }
 
 footer {
-  background-color: #333; /* フッターの背景色 */
-  color: white; /* フッターの文字色 */
+  background-color: #333;
+  /* フッターの背景色 */
+  color: white;
+  /* フッターの文字色 */
   text-align: center;
   padding: 10px;
   position: fixed;
