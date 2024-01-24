@@ -4,13 +4,13 @@
 
 <div id="chatBox">
     {% for message in messages %}
-        <p>{{ message.content }}</p>
+        <p>匿名:{{ message.content }}</p>
     {% endfor %}
 </div>
 
-<form method="post" action="">
+<form method="post" action="" onsubmit="return sendMessage();">
     {% csrf_token %}
-    {{ form }}
+    <input type="text" id="messageInput" name="content" required>
     <input type="submit" value="送信">
 </form>
 
@@ -19,12 +19,15 @@
         var messageInput = document.getElementById('messageInput');
         // 入力が空でない場合のみフォームを送信
         if (messageInput.value.trim() !== "") {
-            // フォームが送信を処理する
-            document.forms[0].submit();
+            // フォームに適切な値を設定
+            document.forms[0].content.value = "匿名:" + messageInput.value;
             // 送信後に入力をクリア（オプション）
             messageInput.value = '';
+            return true; // フォームを送信する
+        } else {
+            return false; // フォーム送信を中止する
         }
-    }    
+    }
 </script>
 
 {% include 'footer.html' %}

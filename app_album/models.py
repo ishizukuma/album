@@ -18,6 +18,7 @@ class Photo(models.Model):
     EVENT_NAME = models.CharField(max_length=50, blank=True, null=True)
     IMAGE_FILE = models.ImageField(upload_to='static/images/', storage=S3MediaStorage(), null=True)
     ALBUM_ID = models.IntegerField(blank=True, null=True)
+    CLASS_NAME = models.CharField(max_length=20, blank=True, null=True)  # 追加
 
     class Meta:
         db_table = 'photo'
@@ -27,7 +28,7 @@ class S3Model(models.Model):
 
 class Message(models.Model):
     content = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(default=datetime.now, editable=False)
 
     def __str__(self):
         return self.content
