@@ -6,6 +6,9 @@ from .models import Photo
 from .models import Message
 from django.http import HttpResponse
 from .models import Photo, S3Model
+from django.conf import settings
+import boto3
+from botocore.exceptions import NoCredentialsError
 
 # スタート
 class IndexView(generic.TemplateView):
@@ -38,8 +41,13 @@ class Event_additionView(View):
     template_name = "event_addition.html"
 
     def get(self, request, *args, **kwargs):
-        # GETメソッドの処理
-        return render(request, self.template_name)
+        # セッションからメッセージを取得
+        success_messages = request.session.get('success_messages', None)
+        if success_messages:
+            # メッセージがある場合は取得後にセッションから削除
+            del request.session['success_messages']
+        context = {'success_messages': success_messages}
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         # POSTメソッドの処理
@@ -58,11 +66,8 @@ class Event_additionView(View):
             )
 
         # フォームの処理が成功した場合、適切なページにリダイレクト
-        return redirect('success_page')
-
-
-
-
+        request.session['success_messages'] = ['アップロードが成功しました。']
+        return redirect('app_album:event_addition')
 
 class Video_additionView(generic.TemplateView):
     template_name = "video_addition.html"

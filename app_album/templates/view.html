@@ -55,8 +55,19 @@
       </option>
     {% endfor %}
   </select>
+
+  <select name="class" placeholder="クラスを選択してください">
+    <option value="">すべてのクラス</option>
+    {% for class_name in class_names %}
+      <option value="{{ class_name }}" {% if request.GET.class == class_name %}selected{% endif %}>
+        {{ class_name }}
+      </option>
+    {% endfor %}
+  </select>
+
   <button type="submit">検索</button>
 </form>
+
 <div class="container">
     {% for photo in photos %}
         <div class="item">

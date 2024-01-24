@@ -9,12 +9,20 @@
         width: 250px;
         height: 250px;
         object-fit: cover;
+        margin: 5px;
     }
 </style>
 
 <h1>イベント写真の追加</h1>
 <body>
-    <form action="{% url 'upload_photo' %}" method="post" id="image-form" enctype="multipart/form-data">
+    {% if success_messages %}
+    <div style="color: green; font-weight: bold;">
+        {% for message in success_messages %}
+            {{ message }}<br>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <form action="{% url 'app_album:event_addition' %}" method="post" id="image-form" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="text" name="event_tag" placeholder="イベントタグを入力">
         <input type="file" name="images[]" id="image-input" multiple accept="image/*">
