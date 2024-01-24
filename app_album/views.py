@@ -1,16 +1,14 @@
 # from django.shortcuts import render
 from django.views import generic
 from django.views import View
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Photo
-
-from django.shortcuts import render
-from django.views import View
 from .models import Message
-
-from django.shortcuts import render, redirect
-from .models import Message
-from .forms import MessageForm
+from django.http import HttpResponse
+from .models import Photo, S3Model
+from django.conf import settings
+import boto3
+from botocore.exceptions import NoCredentialsError
 
 # スタート
 class IndexView(generic.TemplateView):
@@ -39,8 +37,37 @@ class Teacher_informationView(generic.TemplateView):
 class Class_informationView(generic.TemplateView):
     template_name = "class_information.html"
 
-class Event_additionView(generic.TemplateView):
+class Event_additionView(View):
     template_name = "event_addition.html"
+
+    def get(self, request, *args, **kwargs):
+        # セッションからメッセージを取得
+        success_messages = request.session.get('success_messages', None)
+        if success_messages:
+            # メッセージがある場合は取得後にセッションから削除
+            del request.session['success_messages']
+        context = {'success_messages': success_messages}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        # POSTメソッドの処理
+        event_tag = request.POST.get('event_tag')
+        images = request.FILES.getlist('images[]')
+
+        for image in images:
+            # 拡張子を取り除いたファイル名を取得
+            image_name = image.name.rsplit('.', 1)[0]
+            # モデルを作成
+            photo = Photo.objects.create(
+                IMAGE_NAME=image_name,
+                IMAGE_TYPE=2,  # 2に固定
+                EVENT_NAME=event_tag,
+                IMAGE_FILE=image,
+            )
+
+        # フォームの処理が成功した場合、適切なページにリダイレクト
+        request.session['success_messages'] = ['アップロードが成功しました。']
+        return redirect('app_album:event_addition')
 
 class Video_additionView(generic.TemplateView):
     template_name = "video_addition.html"
@@ -57,6 +84,7 @@ class ProfileView(generic.TemplateView):
 
 class ViewView(generic.TemplateView):
     template_name = "view.html"
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -90,6 +118,14 @@ class ViewView(generic.TemplateView):
         context['selected_class_name'] = selected_class_name
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            uploaded_file = request.FILES.get('file')  # フォームで指定したファイルのフィールド名
+            if uploaded_file:
+                S3Model.objects.create(IMAGE_FILE=uploaded_file)
+                return redirect('success_page')
+        return render(request, 'view.html')
 
 
 from .forms import MessageForm

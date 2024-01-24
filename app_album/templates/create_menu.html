@@ -1,18 +1,45 @@
-{% include 'header.html' %}
-<h1>作成メニュー画面</h1>
-<form action="既存の年度を取得するpy" method="post">
-    <input type="submit" value="新規アルバムの年度入力">
-</form>
-<form action="教員情報を取得するpy" method="post">
-    <input type="submit" value="教員情報の掲載登録">
-</form>
-<form action="教員情報と生徒情報を取得するpy" method="post">
-    <input type="submit" value="クラス写真の確認">
-</form>
-<form action="追加画面へ遷移" method="post">
-    <input type="submit" value="イベント写真の追加">
-</form>
-<form action="添付画面へ遷移" method="post">
-    <input type="submit" value="動画の添付">
-</form>
-{% include 'footer.html' %}
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://sotsukenalbum.s3.amazonaws.com/media/static/css/styles.css" />
+</head>
+<body>
+    <header>
+    <div class="navbar">
+        <div class="menu-icon" onclick="toggleMenu()"><img src="https://sotsukenalbum.s3.amazonaws.com/media/static/images/メニューマーク.jpg" width="35px" height="35px" alt="Image"></div>
+        <div class="header">
+        <h1 class="header_h1"><a href="../top">卒アル作成サイトだよ♡</a></h1>
+        </div>
+        <div class="user-icon">
+        <a href="../profile" class="user-icon">
+            <img src="https://sotsukenalbum.s3.amazonaws.com/media/static/images/User-Icon.jpg" width="35px" height="35px" alt="Image"/>
+
+            <!-- #にプロフィール関係の処理が書いてあるものを追加 -->
+            <!-- ここにユーザーアイコンの画像やアイコンの処理を追加 -->
+        </a>
+        </div>
+        <a href="#" class="logout-btn">ログアウト</a>
+        <!-- #にログアウト関係の処理が書いてあるものを追加 -->
+    </div>
+
+    <div class="menu-content" id="menuContent">
+        <a href="../view">閲覧メニュー</a>
+        <a href="../year_input">新規アルバム作成</a>
+        <a href="../teacher_information">教員情報</a>
+        <a href="../class_information">クラスの設定</a>
+        <a href="../event_addition">写真追加</a>
+        <a href="../video_addition">動画追加</a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menuContent = document.getElementById("menuContent");
+            menuContent.style.display =
+            menuContent.style.display === "block" ? "none" : "block";
+        }
+    </script>
+    </header>
+</body>
+</html>

@@ -44,6 +44,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
 </head>
 {% include 'header.html' %}
+{% include 'header.html' %}
 {% include 'menubar.html' %}
 <h1>閲覧</h1>
 <form method="get" action="{% url 'app_album:view' %}">
@@ -58,12 +59,10 @@
     {% endfor %}
   </select>
 
-  <!-- CLASS_NAMEのセレクトボックス -->
-  <label for="class_search">クラス名:</label>
-  <select name="class_search">
+  <select name="class" placeholder="クラスを選択してください">
     <option value="">すべてのクラス</option>
     {% for class_name in class_names %}
-      <option value="{{ class_name }}" {% if class_name == selected_class_name %}selected{% endif %}>
+      <option value="{{ class_name }}" {% if request.GET.class == class_name %}selected{% endif %}>
         {{ class_name }}
       </option>
     {% endfor %}
@@ -72,12 +71,13 @@
   <button type="submit">検索</button>
 </form>
 
-
 <div class="container">
     {% for photo in photos %}
         <div class="item">
-            <a href="{% static 'images/' %}{{ photo.IMAGE_NAME }}.jpg" data-lightbox="group">
-            <img src="{% static 'images/' %}{{ photo.IMAGE_NAME }}.jpg" alt="Photo"></a>
+
+            <a href="{{ photo.IMAGE_FILE.url }}" data-lightbox="group">
+                <img src="{{ photo.IMAGE_FILE.url }}" alt="{{ photo.IMAGE_NAME }}">
+            </a>
         </div>
     {% endfor %}
 </div>

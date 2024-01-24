@@ -1,6 +1,7 @@
 {% include 'header.html' %}
+{% include 'create_menu.html' %}
 <h1>新規アルバムの年度入力</h1>
-<form action="年度をDBに登録するpy" method="post"　id="image-form" enctype="multipart/form-data">
+<form action="年度をDBに登録するpy" method="post" id="image-form" enctype="multipart/form-data">
     <!--既に登録してある年度ならこの画面に戻ってきたい-->
     <input type="number" name="year">
     <input type="submit" value="登録">

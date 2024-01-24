@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'app_album.apps.AppAlbumConfig',
 ]
 
@@ -122,11 +122,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -173,3 +170,27 @@ LOGGING = {
         },
     }
 }
+
+AWS_ACCESS_KEY_ID = os.environ.get('ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = os.environ.get('SECRET_KEY')
+AWS_STORAGE_BUCKET_NAME = 'sotsukenalbum'
+AWS_S3_REGION_NAME = 'ap-northeast-1'  # 例: 'us-east-1'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+# Static files (CSS, JavaScript, images)
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',  # 1 day
+}
+AWS_LOCATION = 'static'  # S3上の保存先ディレクトリ
+
+# Media files (アップロードされるファイル)
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_S3_PUBLIC_URL = 'http://your-bucket-name.s3.amazonaws.com/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+MEDIA_URL = f'{AWS_S3_PUBLIC_URL}media/'
+STATIC_URL = f'{AWS_S3_PUBLIC_URL}static/'
