@@ -1,9 +1,59 @@
 {% include 'header.html' %}
-{% include 'create_menu.html' %}
-<h1>動画の添付</h1>
-<form action="動画を登録して画面をリセットするpy" method="post" enctype="multipart/form-data">
-    <label for="videoFile">動画ファイルを選択してください:</label>
-    <input type="file" id="videoFile" name="video" accept="video/*">
-    <input type="submit" value="アップロード">
-</form>
+{% include 'menubar.html' %}
+<style>
+    #video-preview {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .preview-video {
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        margin: 5px;
+    }
+</style>
+
+<h1>動画の追加</h1>
+<body>
+    {% if success_messages %}
+    <div style="color: green; font-weight: bold;">
+        {% for message in success_messages %}
+            {{ message }}<br>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <form action="{% url 'app_album:video_addition' %}" method="post" id="video-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="event_tag" placeholder="イベントタグを入力">
+        <input type="file" name="video[]" id="video-input" multiple accept="video/*">
+        <input type="submit" value="アップロード">
+    </form>
+    <div id="video-preview"></div>
+
+    <script>
+        function handleFileSelect(event) {
+            const previewContainer = document.getElementById('video-preview');
+            previewContainer.innerHTML = ''; // プレビューをクリア
+
+            const files = event.target.files;
+            for (const file of files) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const img = document.createElement('video');
+                    img.src = e.target.result;
+                    img.classList.add('preview-video');
+
+                    previewContainer.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // ファイルが選択されたらプレビューを更新
+        const imageInput = document.getElementById('video-input');
+        imageInput.addEventListener('change', handleFileSelect);
+    </script>
+</body>
 {% include 'footer.html' %}

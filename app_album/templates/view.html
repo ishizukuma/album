@@ -119,6 +119,7 @@
 {% include 'header.html' %}
 {% include 'menubar.html' %}
 <form method="get" action="{% url 'app_album:view' %}">
+  <!--イベントごとにセレクトで絞り込み-->
   <div class="wrap">
     <div class="cp_ipselect cp_sl01">
         <select name="search" placeholder="イベント名を選択してください">
@@ -131,6 +132,7 @@
         </select>
     </div>
     <br>
+    <!--クラスごとにセレクトで絞り込み-->
     <div class="cp_ipselect cp_sl01">
         <select name="class" placeholder="クラスを選択してください">
           <option value="">すべてのクラス</option>
@@ -145,12 +147,25 @@
   </div>
 </form>
 <div class="container">
-  {% for photo in photos %}
-      <div class="item">
-        <img src="https://sotsukenalbum.s3.amazonaws.com/media/static/images/ガビョーン.png" class="img_02">
-        <a href="{{ photo.IMAGE_FILE.url }}" data-lightbox="group">
-          <img src="{{ photo.IMAGE_FILE.url }}" alt="{{ photo.IMAGE_NAME }}"class="img_01">
-        </a>
-      </div>
-  {% endfor %}
+  <!--写真を表示-->
+{% for photo in photos %}
+  {% if photo.FILE_TYPE == 2 %}
+    <div class="item">
+      <img src="https://sotsukenalbum.s3.amazonaws.com/media/static/images/ガビョーン.png" class="img_02">
+      <a href="{{ photo.FILE.url }}" data-lightbox="group">
+        <img src="{{ photo.FILE.url }}" alt="{{ photo.IMAGE_NAME }}" class="img_01">
+      </a>
+    </div>
+  {% endif %}
+{% endfor %}
+<!--動画を表示  mp4のみ再生できる-->
+{% for photo in photos %}
+  {% if photo.FILE_TYPE == 3 %}
+    <div class="item">
+      <img src="https://sotsukenalbum.s3.amazonaws.com/media/static/images/ガビョーン.png" class="img_02">
+      <video src="{{ photo.FILE.url }}" alt="{{ photo.IMAGE_NAME }}" class="img_01" controls></video>
+    </div>
+  {% endif %}
+{% endfor %}
+
 </div>

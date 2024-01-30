@@ -60,9 +60,9 @@ class Event_additionView(View):
             # モデルを作成
             photo = Photo.objects.create(
                 IMAGE_NAME=image_name,
-                IMAGE_TYPE=2,  # 2に固定
+                FILE_TYPE=2,  # 2に固定
                 EVENT_NAME=event_tag,
-                IMAGE_FILE=image,
+                FILE=image,
             )
 
         # フォームの処理が成功した場合、適切なページにリダイレクト
@@ -71,6 +71,35 @@ class Event_additionView(View):
 
 class Video_additionView(generic.TemplateView):
     template_name = "video_addition.html"
+
+    def get(self, request, *args, **kwargs):
+        # セッションからメッセージを取得
+        success_messages = request.session.get('success_messages', None)
+        if success_messages:
+            # メッセージがある場合は取得後にセッションから削除
+            del request.session['success_messages']
+        context = {'success_messages': success_messages}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        # POSTメソッドの処理
+        event_tag = request.POST.get('event_tag')
+        videos = request.FILES.getlist('video[]')
+
+        for video in videos:
+            # 拡張子を取り除いたファイル名を取得
+            video_name = video.name.rsplit('.', 1)[0]
+            # モデルを作成
+            photo = Photo.objects.create(
+                IMAGE_NAME=video_name,
+                FILE_TYPE=3,  # 2に固定
+                EVENT_NAME=event_tag,
+                FILE=video,
+            )
+
+        # フォームの処理が成功した場合、適切なページにリダイレクト
+        request.session['success_messages'] = ['アップロードが成功しました。']
+        return redirect('app_album:video_addition')
 
 class Year_inputView(generic.TemplateView):
     template_name = "year_input.html"
