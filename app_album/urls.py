@@ -4,7 +4,7 @@ from . import views
 
 app_name = 'app_album'
 urlpatterns = [
-    path('', views.IndexView.as_view(), name="home"),
+    path('', views.IndexView.as_view(), name="top"),
     
     # 新規登録
     path('registration_select/', views.Registration_selectView.as_view(), name="registration_select"),
@@ -21,7 +21,6 @@ urlpatterns = [
     path('year_input/', views.Year_inputView.as_view(), name="year_input"),
     
     # 利用
-    path('top/', views.TopView.as_view(), name="top"),
     path('profile/', views.ProfileView.as_view(), name="profile"),
     path('view/', views.ViewView.as_view(), name="view"),
     path('notice/', views.NoticeView.as_view(), name="notice"),

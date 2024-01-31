@@ -12,7 +12,7 @@ from botocore.exceptions import NoCredentialsError
 
 # スタート
 class IndexView(generic.TemplateView):
-    template_name = "home.html"
+    template_name = "top.html"
 
 # 新規登録
 class Registration_selectView(generic.TemplateView):
@@ -105,8 +105,8 @@ class Year_inputView(generic.TemplateView):
     template_name = "year_input.html"
 
 # 利用
-class TopView(generic.TemplateView):
-    template_name = "top.html"
+#class TopView(generic.TemplateView):
+#    template_name = "top.html"
 
 class ProfileView(generic.TemplateView):
     template_name = "profile.html"
