@@ -12,7 +12,8 @@
 {% if user.is_authenticated %}
 <div class="h2">Welcome {{ user.username }}</div>
 <!-- ↓追加 -->
-<a href="{% url 'accounts:logout' %}" class="btn btn-primary">Logout</a> 
+<a href="{% url 'accounts:logout' %}" class="btn btn-primary">Logout</a>
+<a href="{% url 'app_album:home' %}" class="btn btn-primary">Entry</a> 
 {% else %}
 <a href="{% url 'accounts:signup' %}" class="btn btn-primary">Signup</a>
 <a href="{% url 'accounts:login' %}" class="btn btn-primary">Login</a>

@@ -4,7 +4,7 @@ from . import views
 
 app_name = 'app_album'
 urlpatterns = [
-    path('', views.IndexView.as_view(), name="login"),
+    path('', views.IndexView.as_view(), name="home"),
     
     # 新規登録
     path('registration_select/', views.Registration_selectView.as_view(), name="registration_select"),
