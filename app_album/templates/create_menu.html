@@ -25,12 +25,12 @@
     </div>
 
     <div class="menu-content" id="menuContent">
-        <a href="{% app_album:view %}">閲覧メニュー</a>
-        <a href="{% app_album:year_input %}">新規アルバム作成</a>
-        <a href="{% app_album:teacher_information %}">教員情報</a>
-        <a href="{% app_album:class_information %}">クラスの設定</a>
-        <a href="{% app_album:event_addition %}">写真追加</a>
-        <a href="{% app_album:video_addition %}">動画追加</a>
+        <a href="{% url 'app_album:view' %}">閲覧メニュー</a>
+        <a href="{% url 'app_album:year_input' %}">新規アルバム作成</a>
+        <a href="{% url 'app_album:teacher_information' %}">教員情報</a>
+        <a href="{% url 'app_album:class_information' %}">クラスの設定</a>
+        <a href="{% url 'app_album:event_addition' %}">写真追加</a>
+        <a href="{% url 'app_album:video_addition' %}">動画追加</a>
     </div>
 
     <script>
