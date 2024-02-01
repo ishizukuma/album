@@ -10,19 +10,10 @@ from django.conf import settings
 import boto3
 from botocore.exceptions import NoCredentialsError
 
+
 # スタート
 class IndexView(generic.TemplateView):
     template_name = "top.html"
-
-# 新規登録
-class Registration_selectView(generic.TemplateView):
-    template_name = "registration_select.html"
-
-class Teacher_registrationView(generic.TemplateView):
-    template_name = "teacher_registration.html"
-
-class Student_registrationView(generic.TemplateView):
-    template_name = "student_registration.html"
 
 class Mail_sendView(generic.TemplateView):
     template_name = "mail_send.html"
@@ -103,10 +94,6 @@ class Video_additionView(generic.TemplateView):
 
 class Year_inputView(generic.TemplateView):
     template_name = "year_input.html"
-
-# 利用
-#class TopView(generic.TemplateView):
-#    template_name = "top.html"
 
 class ProfileView(generic.TemplateView):
     template_name = "profile.html"
@@ -203,6 +190,4 @@ class Password_ResetView(generic.TemplateView):
 
 class Password_changeView(generic.TemplateView):
     template_name = "password_change.html"
-
-class LogoutView(generic.TemplateView):
-    template_name = "logout.html"
+    

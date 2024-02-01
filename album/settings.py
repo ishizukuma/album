@@ -199,5 +199,5 @@ STATICFILES_DIRS = [
 MEDIA_URL = f'{AWS_S3_PUBLIC_URL}media/'
 STATIC_URL = f'{AWS_S3_PUBLIC_URL}static/'
 
-LOGIN_REDIRECT_URL = "accounts:index"
+LOGIN_REDIRECT_URL = "app_album:top"
 LOGOUT_REDIRECT_URL = "accounts:login"
