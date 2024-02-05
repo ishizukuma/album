@@ -20,17 +20,17 @@
             <!-- ここにユーザーアイコンの画像やアイコンの処理を追加 -->
         </a>
         </div>
-        <a href="#" class="logout-btn">ログアウト</a>
+        <a href="{% url 'accounts:logout' %}" class="logout-btn">ログアウト</a>
         <!-- #にログアウト関係の処理が書いてあるものを追加 -->
     </div>
 
     <div class="menu-content" id="menuContent">
-        <a href="../view">閲覧メニュー</a>
-        <a href="../year_input">新規アルバム作成</a>
-        <a href="../teacher_information">教員情報</a>
-        <a href="../class_information">クラスの設定</a>
-        <a href="../event_addition">写真追加</a>
-        <a href="../video_addition">動画追加</a>
+        <a href="{% url 'app_album:view' %}">閲覧メニュー</a>
+        <a href="{% url 'app_album:year_input' %}">新規アルバム作成</a>
+        <a href="{% url 'app_album:teacher_information' %}">教員情報</a>
+        <a href="{% url 'app_album:class_information' %}">クラスの設定</a>
+        <a href="{% url 'app_album:event_addition' %}">写真追加</a>
+        <a href="{% url 'app_album:video_addition' %}">動画追加</a>
     </div>
 
     <script>
