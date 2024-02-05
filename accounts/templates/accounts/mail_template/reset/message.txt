@@ -1,0 +1,12 @@
+こんにちは、
+以下のリンクをクリックしてパスワードをリセットしてください。
+
+{{ protocol }}://{{ domain }}{% url 'accounts:password_reset_confirm' uidb64=uid token=token %}
+
+このリンクは {{ reset_timeout }} 分間有効です。
+
+リンクをクリックしても動作しない場合は、以下のURLをブラウザにコピーしてアクセスしてください。
+
+{{ protocol }}://{{ domain }}{% url 'accounts:password_reset_confirm' uidb64=uid token=token %}
+
+このメールに心当たりがない場合は、お手数ですが無視してください。

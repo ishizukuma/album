@@ -199,5 +199,18 @@ STATICFILES_DIRS = [
 MEDIA_URL = f'{AWS_S3_PUBLIC_URL}media/'
 STATIC_URL = f'{AWS_S3_PUBLIC_URL}static/'
 
+
 LOGIN_REDIRECT_URL = "app_album:top"
 LOGOUT_REDIRECT_URL = "accounts:index"
+
+#メールアドレス設定
+# settings.py
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'system@example.com'
