@@ -11,23 +11,39 @@
         object-fit: cover;
         margin: 5px;
     }
+    #upload-message {
+        color: blue;
+        font-weight: bold;
+        display: none;
+        margin-top: 10px;
+    }
+    #upload-message-overlay {
+        position: absolute;
+        margin-top: -30px; /* 適切な値を調整してください */
+        color: blue;
+        font-weight: bold;
+        display: none;
+    }
 </style>
 
 <h1>動画の追加</h1>
 <body>
-    {% if success_messages %}
+    <form action="{% url 'app_album:video_addition' %}" method="post" id="video-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="upload-message-overlay">アップロード中...</div>
+        <input type="text" name="event_tag" placeholder="イベントタグを入力">
+        <input type="file" name="video[]" id="video-input" multiple accept="video/*">
+        <button type="button" onclick="startUpload()">アップロード</button>
+    </form>
+        {% if success_messages %}
     <div style="color: green; font-weight: bold;">
         {% for message in success_messages %}
             {{ message }}<br>
         {% endfor %}
     </div>
     {% endif %}
-    <form action="{% url 'app_album:video_addition' %}" method="post" id="video-form" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="text" name="event_tag" placeholder="イベントタグを入力">
-        <input type="file" name="video[]" id="video-input" multiple accept="video/*">
-        <input type="submit" value="アップロード">
-    </form>
+
+    <div id="upload-message">アップロード中...</div>
     <div id="video-preview"></div>
 
     <script>
@@ -40,20 +56,30 @@
                 const reader = new FileReader();
 
                 reader.onload = function (e) {
-                    const img = document.createElement('video');
-                    img.src = e.target.result;
-                    img.classList.add('preview-video');
+                    const video = document.createElement('video');
+                    video.src = e.target.result;
+                    video.classList.add('preview-video');
 
-                    previewContainer.appendChild(img);
+                    previewContainer.appendChild(video);
                 };
 
                 reader.readAsDataURL(file);
             }
         }
 
-        // ファイルが選択されたらプレビューを更新
-        const imageInput = document.getElementById('video-input');
-        imageInput.addEventListener('change', handleFileSelect);
+        function startUpload() {
+            const uploadMessage = document.getElementById('upload-message');
+            uploadMessage.style.display = 'block'; // アップロード中メッセージを表示
+
+            // ファイルが選択されたらプレビューを更新
+            const imageInput = document.getElementById('video-input');
+            imageInput.addEventListener('change', handleFileSelect);
+
+            // ここでフォームを送信するか、Ajaxを使用してサーバーにデータを送信するなどの処理を実行します
+            // この例ではフォームを送信することにします
+            const videoForm = document.getElementById('video-form');
+            videoForm.submit();
+        }
     </script>
 </body>
 {% include 'footer.html' %}
