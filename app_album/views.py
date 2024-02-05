@@ -9,27 +9,34 @@ from .models import Photo, S3Model
 from django.conf import settings
 import boto3
 from botocore.exceptions import NoCredentialsError
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
 # スタート
-class IndexView(generic.TemplateView):
+class IndexView(generic.TemplateView,LoginRequiredMixin,View):
     template_name = "top.html"
-
-class Mail_sendView(generic.TemplateView):
+    login_url = reverse_lazy("accounts:index")
+    
+class Mail_sendView(generic.TemplateView,LoginRequiredMixin):
     template_name = "mail_send.html"
-
+    login_url = reverse_lazy("accounts:index")
 # 作成
-class Create_menuView(generic.TemplateView):
+class Create_menuView(generic.TemplateView,LoginRequiredMixin):
     template_name = "create_menu.html"
+    login_url = reverse_lazy("accounts:index")
 
-class Teacher_informationView(generic.TemplateView):
+class Teacher_informationView(generic.TemplateView,LoginRequiredMixin):
     template_name = "teacher_information.html"
-
-class Class_informationView(generic.TemplateView):
+    login_url = reverse_lazy("accounts:index")
+    
+class Class_informationView(generic.TemplateView,LoginRequiredMixin):
     template_name = "class_information.html"
+    login_url = reverse_lazy("accounts:index")
 
-class Event_additionView(View):
+class Event_additionView(View,LoginRequiredMixin):
     template_name = "event_addition.html"
+    login_url = reverse_lazy("accounts:index")
 
     def get(self, request, *args, **kwargs):
         # セッションからメッセージを取得
@@ -60,8 +67,9 @@ class Event_additionView(View):
         request.session['success_messages'] = ['アップロードが成功しました。']
         return redirect('app_album:event_addition')
 
-class Video_additionView(generic.TemplateView):
+class Video_additionView(generic.TemplateView,LoginRequiredMixin):
     template_name = "video_addition.html"
+    login_url = reverse_lazy("accounts:index")
 
     def get(self, request, *args, **kwargs):
         # セッションからメッセージを取得
@@ -92,14 +100,19 @@ class Video_additionView(generic.TemplateView):
         request.session['success_messages'] = ['アップロードが成功しました。']
         return redirect('app_album:video_addition')
 
-class Year_inputView(generic.TemplateView):
+class Year_inputView(generic.TemplateView,LoginRequiredMixin):
     template_name = "year_input.html"
+    login_url = reverse_lazy("accounts:index")
 
-class ProfileView(generic.TemplateView):
+class ProfileView(generic.TemplateView,LoginRequiredMixin):
     template_name = "profile.html"
+    login_url = reverse_lazy("accounts:index")
 
-class ViewView(generic.TemplateView):
+    
+class ViewView(generic.TemplateView,LoginRequiredMixin):
     template_name = "view.html"
+    login_url = reverse_lazy("accounts:index")
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -145,8 +158,10 @@ class ViewView(generic.TemplateView):
 
 from .forms import MessageForm
 
-class NoticeView(View):
+class NoticeView(View,LoginRequiredMixin):
     template_name = "notice.html"
+    login_url = reverse_lazy("accounts:index")
+
 
     def get(self, request, *args, **kwargs):
         # データベースからメッセージを取得
@@ -185,9 +200,13 @@ def notice_view(request):
         return render(request, 'notice.html', {'messages': messages, 'form': form})
 
 
-class Password_ResetView(generic.TemplateView):
+class Password_ResetView(generic.TemplateView,LoginRequiredMixin):
     template_name = "password_reset.html"
+    login_url = reverse_lazy("accounts:index")
 
-class Password_changeView(generic.TemplateView):
+
+class Password_changeView(generic.TemplateView,LoginRequiredMixin):
     template_name = "password_change.html"
+    login_url = reverse_lazy("accounts:index")
+
     
