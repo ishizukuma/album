@@ -1,7 +1,13 @@
 {% load static%}
+{% include 'header.html' %}
+{% include 'menubar.html' %}
 <head>
     <style>
         body {
+          font-family: "MS Mincho", "ＭＳ 明朝", serif; /* 明朝体に変更 */
+          font-size: 16px; /* フォントサイズを調整 */
+          color: white; /* フォントカラーを設定 */
+          top:100;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -46,78 +52,76 @@
           margin: 10px;
         }
         /*絞り込み*/
-      .cp_ipselect {
-        overflow: hidden;
-        margin-top: 1em ;
-        text-align: center;
-      }
-      .cp_ipselect select {
-        width: 100%;
-        padding-right: 1em;
-        cursor: pointer;
-        text-indent: 0.01px;
-        text-overflow: ellipsis;
-        border: none;
-        outline: none;
-        background: transparent;
-        background-image: none;
-        box-shadow: none;
-        -webkit-appearance: none;
-        appearance: none;
-        font-family: "MS Mincho", "ＭＳ 明朝", serif; /* 明朝体に変更 */
-        font-size: 16px; /* フォントサイズを調整 */
-        color: #000000; /* フォントカラーを設定 */
-    }
-      .cp_ipselect select::-ms-expand {
-          display: none;
-      }
-      .cp_ipselect.cp_sl01 {
-        position: relative;
-        border-radius: 2px;
-        border: 2px solid #f5b7b1;
-        border-radius: 50px;
-        background: #ffffff;
-      }
-      .cp_ipselect.cp_sl01::before {
-        position: absolute;
-        top: 1em;
-        right: 0.8em;
-        width: 0;
-        height: 0;
-        padding: 0;
-        content: '';
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-top: 6px solid #f5b7b1;
-        pointer-events: none;
-      }
-      .cp_ipselect.cp_sl01 select {
-        padding: 11px 38px 5px 8px;
-        color: black;
-      }
-      /*ボタン*/
-      button {
-        font-family: "MS Mincho", "ＭＳ 明朝", serif; /* 明朝体に変更 */
-        font-size: 16px; /* フォントサイズを調整 */
-        color:white;
-        overflow: hidden;
-        margin-top: 1em ;
-        text-align: center;
-        height:42px;
-        background-color: #f5b7b1; /* 薄桃色 */
-        border-radius: 50px; /* 角を丸くする */
-        padding: 10px 20px; /* ボタンのパディング */
-        border: 2px solid white; /* ボーダーをなくす */
-        cursor: pointer; /* カーソルをポインターにする */
-    }
+        .cp_ipselect {
+          overflow: hidden;
+          margin-top: 1em ;
+          text-align: center;
+        }
+        .cp_ipselect select {
+          width: 100%;
+          padding-right: 1em;
+          cursor: pointer;
+          text-indent: 0.01px;
+          text-overflow: ellipsis;
+          border: none;
+          outline: none;
+          background: transparent;
+          background-image: none;
+          box-shadow: none;
+          -webkit-appearance: none;
+          appearance: none;
+          font-family: "MS Mincho", "ＭＳ 明朝", serif; /* 明朝体に変更 */
+          font-size: 16px; /* フォントサイズを調整 */
+          color: #000000; /* フォントカラーを設定 */
+        }
+        .cp_ipselect select::-ms-expand {
+            display: none;
+        }
+        .cp_ipselect.cp_sl01 {
+          position: relative;
+          border-radius: 2px;
+          border: 2px solid #f5b7b1;
+          border-radius: 50px;
+          background: #ffffff;
+        }
+        .cp_ipselect.cp_sl01::before {
+          position: absolute;
+          top: 1em;
+          right: 0.8em;
+          width: 0;
+          height: 0;
+          padding: 0;
+          content: '';
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-top: 6px solid #f5b7b1;
+          pointer-events: none;
+        }
+        .cp_ipselect.cp_sl01 select {
+          padding: 11px 38px 5px 8px;
+          color: black;
+        }
+        /*ボタン*/
+        button {
+          font-family: "MS Mincho", "ＭＳ 明朝", serif; /* 明朝体に変更 */
+          font-size: 16px; /* フォントサイズを調整 */
+          color:white;
+          overflow: hidden;
+          margin-top: 1em ;
+          text-align: center;
+          height:42px;
+          background-color: #f5b7b1; /* 薄桃色 */
+          border-radius: 50px; /* 角を丸くする */
+          padding: 10px 20px; /* ボタンのパディング */
+          border: 2px solid white; /* ボーダーをなくす */
+          cursor: pointer; /* カーソルをポインターにする */
+        }
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet" type="text/css" rel="noopener noreferrer">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
 </head>
 
-{% include 'header.html' %}
-{% include 'menubar.html' %}
 <form method="get" action="{% url 'app_album:view' %}">
   <div class="wrap">
     <div class="cp_ipselect cp_sl01">
