@@ -11,8 +11,7 @@
     <input type="email" name="" value="DBにあるメールアドレス">
   </p>
   <p>
-    パスワード:
-    <input type="password" name="" value="DBにあるパスワード">
+    <a href="{% url 'accounts:password_change' %}" class="user-icon">パスワード変更</a>
   </p>
   <input type="button" name="" value="更新">
 </form>
