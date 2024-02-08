@@ -1,28 +1,54 @@
+
 {% include 'header.html' %}
-{% include 'menubar.html' %}
+{% include 'create_menu.html' %}
 <style>
-    #video-preview {
+    body {
+        font-family: "MS Mincho", "ＭＳ 明朝", serif; /* 明朝体に変更 */
+        font-size: 16px; /* フォントサイズを調整 */
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed; /* 背景画像を固定 */
+        background-image:url("https://gahag.net/img/201604/13s/gahag-0075581837-1.png");
+    }
+    .maincss {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    .whiteB{
+        background-color: white; /* 白い背景 */
+        border: 10px solid rgba(128, 128, 128, 0.3); /* 30%の透明度を持つ灰色の縁取り */
+        border-radius: 10px; /* 角を丸くする半径 */
+        padding: 10px; /* 内側の余白 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 影の効果 */
+        background-clip
+    }
+    .whiteB > div {
+        margin: 5px;
+    }
+    .whiteB > form {
+        margin: 5px;
+    }
+    .whiteB > form > input {
+        margin: 5px;
+    }
+    .whiteB > div#image-preview {
+        margin: 5px;
+    }
+
+    .button {
+
+    }
+    #image-preview {
         display: flex;
         flex-wrap: wrap;
     }
-    .preview-video {
+    .preview-image {
         width: 250px;
         height: 250px;
         object-fit: cover;
         margin: 5px;
-    }
-    #upload-message {
-        color: blue;
-        font-weight: bold;
-        display: none;
-        margin-top: 10px;
-    }
-    #upload-message-overlay {
-        position: absolute;
-        margin-top: -30px; /* 適切な値を調整してください */
-        color: blue;
-        font-weight: bold;
-        display: none;
     }
 </style>
 
