@@ -1,7 +1,27 @@
+<style>
+  .kokuban-s2 {
+  position: relative;
+  margin: 2em auto;
+  padding: 1em;
+  width: 90%; /* ボックス幅 */
+  background: #006633; /* ボックス背景色 */
+  color: #fff; /* 文章色 */
+  border: 8px solid #b2771f; /* 枠線 */
+  border-radius: 3px; /* 角の丸み */
+  box-shadow: 0 0 5px #333, 0 0 5px #555 inset;
+  }
+  .kokuban-s2::before,
+  .kokuban-s2::after {
+  position: absolute;
+  content: ”;
+  bottom: 0;
+  }
+</style>
+<div class="kokuban-s2">
 {% extends 'base.html' %}
 
 {% block title %}
-<div class="h1">Create account</div>
+<div class="h1">アカウント作成</div>
 {% endblock %}
 
 {% block content %}
@@ -17,9 +37,10 @@
     <br>
     {% endfor %}
     <div class="mt-3">
-      <button type="submit" class="btn btn-primary">Create</button>
-      <a href="{% url 'accounts:index' %}" class="btn btn-secondary">Back</a>
+      <button type="submit" class="btn btn-primary">作成</button>
+      <a href="{% url 'accounts:index' %}" class="btn btn-secondary">戻る</a>
     </div>
   </form>
 </div>
 {% endblock %}
+</div>
