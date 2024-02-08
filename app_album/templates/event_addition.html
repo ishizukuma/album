@@ -1,6 +1,45 @@
 {% include 'header.html' %}
-{% include 'menubar.html' %}
+{% include 'create_menu.html' %}
+
 <style>
+    body {
+        font-family: "MS Mincho", "ＭＳ 明朝", serif; /* 明朝体に変更 */
+        font-size: 16px; /* フォントサイズを調整 */
+        
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed; /* 背景画像を固定 */
+        background-image:url("https://gahag.net/img/201604/13s/gahag-0075581837-1.png");
+    }
+    .maincss {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    .whiteB{
+        background-color: white; /* 白い背景 */
+        border: 10px solid rgba(128, 128, 128, 0.3); /* 30%の透明度を持つ灰色の縁取り */
+        border-radius: 10px; /* 角を丸くする半径 */
+        padding: 10px; /* 内側の余白 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 影の効果 */
+        background-clip
+    }
+    .whiteB > div {
+        margin: 5px;
+    }
+    .whiteB > form {
+        margin: 5px;
+    }
+    .whiteB > form > input {
+        margin: 5px;
+    }
+    .whiteB > div#image-preview {
+        margin: 5px;
+    }
+    
+    .button {
+        
+    }
     #image-preview {
         display: flex;
         flex-wrap: wrap;
@@ -13,22 +52,29 @@
     }
 </style>
 
-<h1>イベント写真の追加</h1>
+<h1 style="color: white;">イベント写真の追加</h1>
 <body>
-    {% if success_messages %}
-    <div style="color: green; font-weight: bold;">
-        {% for message in success_messages %}
-            {{ message }}<br>
-        {% endfor %}
+    <div class="maincss">
+        {% if success_messages %}
+        <div style="color: green; font-weight: bold;">
+            {% for message in success_messages %}
+                {{ message }}<br>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="whiteB">
+            <form action="{% url 'app_album:event_addition' %}" method="post" id="image-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" name="event_tag" placeholder="イベントタグを入力">
+                <br>
+                
+                <input type="file" name="images[]" id="image-input" multiple accept="image/*">
+                
+                <input type="submit" value="アップロード" class="button">
+            </form>
+        </div>
+        <div id="image-preview"></div>
     </div>
-    {% endif %}
-    <form action="{% url 'app_album:event_addition' %}" method="post" id="image-form" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="text" name="event_tag" placeholder="イベントタグを入力">
-        <input type="file" name="images[]" id="image-input" multiple accept="image/*">
-        <input type="submit" value="アップロード">
-    </form>
-    <div id="image-preview"></div>
 
     <script>
         function handleFileSelect(event) {
@@ -56,4 +102,4 @@
         imageInput.addEventListener('change', handleFileSelect);
     </script>
 </body>
-{% include 'footer.html' %}
+
