@@ -1,0 +1,75 @@
+<style>
+    .head{
+        font-family: "MS Mincho", "ＭＳ 明朝", serif; /* 明朝体に変更 */
+        background-image: url('https://3.bp.blogspot.com/-FhWpyVG9zLw/XBRfLR_1_QI/AAAAAAABQ24/cIYgOmyYcrcU0xKghQ0k7vlzV6KExFM4gCLcBGAs/s450/sotsugyou_school_blazer_man.png'), url('https://2.bp.blogspot.com/-uZ0eGfZOzEA/XBRfLBql5dI/AAAAAAABQ20/jslKaoZRljslaIgXEi9XcJW2PF0WExjDgCLcBGAs/s450/sotsugyou_school_blazer_woman.png');
+        background-position: right top, left top;
+        background-repeat: no-repeat;
+        background-size: 40% auto, 40% auto;
+    }
+    .bkRGBA{
+        /* 背景画像の透過用css */
+        height: 100%;
+        width:100%;
+        background: rgba(255,255,255,0.7);
+    }
+    .tytle{
+        font-weight: bold;
+        animation: fadeIn 4s ease forwards; /* フェードインアニメーションを適用 */
+        font-size: 300%;
+        text-align: center; /* テキストを水平方向に中央揃え */
+        line-height: 450px; /* テキストを垂直方向に中央揃え（要素の高さに合わせる）*/
+    }
+    @keyframes fadeIn {
+        from {
+          opacity: 0; /* 不透明度を0に設定 */
+        }
+        to {
+          opacity: 1; /* 不透明度を1に設定 */
+        }
+    }
+    .button {
+        text-decoration: none;
+        display       : inline-block;
+        border-radius : 5%;          /* 角丸       */
+        font-size     : 18pt;        /* 文字サイズ */
+        text-align    : center;      /* 文字位置   */
+        cursor        : pointer;     /* カーソル   */
+        padding       : 12px 12px;   /* 余白       */
+        background    : #f5b7b1;     /* 背景色     */
+        color         : #ffffff;     /* 文字色     */
+        line-height   : 1em;         /* 1行の高さ  */
+        transition    : .3s;         /* なめらか変化 */
+        box-shadow    : 2px 2px 5px #666666;  /* 影の設定 */
+        border        : 2px solid #f5b7b1;    /* 枠の指定 */
+    }
+    .button:hover {
+        box-shadow    : none;        /* カーソル時の影消去 */
+        color         : #f5b7b1;     /* 背景色     */
+        background    : #ffffff;     /* 文字色     */
+    }
+</style>
+
+{% extends 'base.html' %}
+{% block title %}
+<div class="head">
+    <div class="bkRGBA">
+        <h1 class="tytle">電子卒業アルバム</h1>
+        <div>
+            {% if user.is_authenticated %}
+            {% else %}
+            <div class="h6">閲覧するにはログインをしてください</div>
+            {% endif %}
+            {% endblock %}
+            {% block content %}
+            {% if user.is_authenticated %}
+            <div class="h6">おかえりなさい{{ user.username }}さん</div>
+            <a href="{% url 'accounts:logout' %}" class="button">ログアウト</a>
+            <a href="{% url 'app_album:top' %}" class="button">閲覧画面へ</a> 
+            {% else %}
+            <a href="{% url 'accounts:signup' %}" class="button">アカウント作成</a>
+            <a href="{% url 'accounts:login' %}" class="button">ログイン</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
