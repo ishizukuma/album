@@ -11,13 +11,13 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-
-
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 # スタート
 class IndexView(generic.TemplateView,LoginRequiredMixin,View):
     template_name = "top.html"
     login_url = reverse_lazy("accounts:index")
-    
+
 class Mail_sendView(generic.TemplateView,LoginRequiredMixin):
     template_name = "mail_send.html"
     login_url = reverse_lazy("accounts:index")
@@ -29,7 +29,7 @@ class Create_menuView(generic.TemplateView,LoginRequiredMixin):
 class Teacher_informationView(generic.TemplateView,LoginRequiredMixin):
     template_name = "teacher_information.html"
     login_url = reverse_lazy("accounts:index")
-    
+
 class Class_informationView(generic.TemplateView,LoginRequiredMixin):
     template_name = "class_information.html"
     login_url = reverse_lazy("accounts:index")
@@ -108,7 +108,7 @@ class ProfileView(generic.TemplateView,LoginRequiredMixin):
     template_name = "profile.html"
     login_url = reverse_lazy("accounts:index")
 
-    
+
 class ViewView(generic.TemplateView,LoginRequiredMixin):
     template_name = "view.html"
     login_url = reverse_lazy("accounts:index")
@@ -158,47 +158,21 @@ class ViewView(generic.TemplateView,LoginRequiredMixin):
 
 from .forms import MessageForm
 
-class NoticeView(View,LoginRequiredMixin):
+class NoticeView(LoginRequiredMixin, View):
     template_name = "notice.html"
     login_url = reverse_lazy("accounts:index")
 
-
     def get(self, request, *args, **kwargs):
-        # データベースからメッセージを取得
         messages = Message.objects.all()
         form = MessageForm()
         return render(request, self.template_name, {'messages': messages, 'form': form})
 
     def post(self, request, *args, **kwargs):
         form = MessageForm(request.POST)
-
         if form.is_valid():
-            # メッセージをデータベースに保存
-            Message.objects.create(content=form.cleaned_data['message'])
-
-        # データベースから更新されたメッセージを取得
+            Message.objects.create(content=form.cleaned_data['content'])
         messages = Message.objects.all()
         return render(request, self.template_name, {'messages': messages, 'form': form})
-
-
-
-def notice_view(request):
-    if request.method == 'GET':
-        # データベースからメッセージを取得
-        messages = Message.objects.all()
-        form = MessageForm()
-        return render(request, 'notice.html', {'messages': messages, 'form': form})
-
-    elif request.method == 'POST':
-        form = MessageForm(request.POST)
-        if form.is_valid():
-            # メッセージをデータベースに保存
-            Message.objects.create(content=form.cleaned_data['message'])
-
-        # データベースから更新されたメッセージを取得
-        messages = Message.objects.all()
-        return render(request, 'notice.html', {'messages': messages, 'form': form})
-
 
 class Password_ResetView(generic.TemplateView,LoginRequiredMixin):
     template_name = "password_reset.html"
@@ -209,4 +183,9 @@ class Password_changeView(generic.TemplateView,LoginRequiredMixin):
     template_name = "password_change.html"
     login_url = reverse_lazy("accounts:index")
 
-    
+def send_message(request):
+    if request.method == 'POST':
+        content = request.POST.get('content', '')
+        if content.strip():  # 空でないメッセージの場合のみ保存
+            Message.objects.create(content=content)
+    return redirect('app_album:notice')  # チャット画面にリダイレクト

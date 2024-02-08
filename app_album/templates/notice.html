@@ -1,33 +1,89 @@
 {% include 'header.html' %}
 {% include 'menubar.html' %}
+<link rel="stylesheet" type="text/css" href="https://sotsukenalbum.s3.amazonaws.com/media/static/css/styles.css"><style>
+    /* チャットボックス全体のスタイル */
+    .chat-box {
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f1f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* メッセージのスタイル */
+    .message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    }
+
+    /* 送信者のメッセージのスタイル */
+    .sender {
+    background-color: #4CAF50;
+    color: white;
+    float: right;
+    }
+
+    /* 受信者のメッセージのスタイル */
+    .receiver {
+    background-color: #ddd;
+    color: black;
+    float: left;
+    }
+
+    /* タイムスタンプのスタイル */
+    .timestamp {
+    font-size: 12px;
+    color: #888;
+    }
+
+    /* インプットエリアのスタイル */
+    .input-area {
+    margin-top: 10px;
+    }
+
+    /* 送信ボタンのスタイル */
+    .send-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+
+    .send-button:hover {
+    background-color: #45a049;
+    }
+</style>
 <h1>お知らせ</h1>
 
-<div id="chatBox">
+<div id="chatBox" class="chat-box">
     {% for message in messages %}
-        <p>匿名:{{ message.content }}</p>
+        <div class="message {% if message.user == request.user %}sender{% else %}receiver{% endif %}">
+            {{ message.user.username }}: {{ message.content }}
+            <div class="timestamp">{{ message.timestamp }}</div>
+        </div>
     {% endfor %}
 </div>
 
-<form method="post" action="" onsubmit="return sendMessage();">
+<form method="post" action="{% url 'app_album:notice' %}" class="input-area" onsubmit="return sendMessage();">
     {% csrf_token %}
-    <input type="text" id="messageInput" name="content" required>
-    <input type="submit" value="送信">
+    <input type="text" id="messageInput" name="content" placeholder="Type your message..." required>
+    <input type="submit" value="送信" class="send-button">
 </form>
+
+{% include 'footer.html' %}
 
 <script>
     function sendMessage() {
         var messageInput = document.getElementById('messageInput');
         // 入力が空でない場合のみフォームを送信
         if (messageInput.value.trim() !== "") {
-            // フォームに適切な値を設定
-            document.forms[0].content.value = "匿名:" + messageInput.value;
-            // 送信後に入力をクリア（オプション）
-            messageInput.value = '';
             return true; // フォームを送信する
         } else {
             return false; // フォーム送信を中止する
         }
     }
 </script>
-
-{% include 'footer.html' %}
