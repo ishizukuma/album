@@ -30,7 +30,6 @@
 <body>
     <form action="{% url 'app_album:video_addition' %}" method="post" id="video-form" enctype="multipart/form-data">
         {% csrf_token %}
-        <div id="upload-message-overlay">アップロード中...</div>
         <input type="text" name="event_tag" placeholder="イベントタグを入力">
         <input type="file" name="video[]" id="video-input" multiple accept="video/*">
         <button type="button" onclick="startUpload()">アップロード</button>
