@@ -5,7 +5,7 @@
     body {
         font-family: "MS Mincho", "ＭＳ 明朝", serif; /* 明朝体に変更 */
         font-size: 16px; /* フォントサイズを調整 */
-        
+
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -36,9 +36,9 @@
     .whiteB > div#image-preview {
         margin: 5px;
     }
-    
+
     .button {
-        
+
     }
     #image-preview {
         display: flex;
@@ -50,31 +50,39 @@
         object-fit: cover;
         margin: 5px;
     }
+    #upload-message {
+        color: blue;
+        font-weight: bold;
+        display: none;
+        margin-top: 10px;
+    }
+    #upload-message-overlay {
+        position: absolute;
+        margin-top: -30px; /* 適切な値を調整してください */
+        color: blue;
+        font-weight: bold;
+        display: none;
+    }
 </style>
 
 <h1 style="color: white;">イベント写真の追加</h1>
 <body>
-    <div class="maincss">
-        {% if success_messages %}
-        <div style="color: green; font-weight: bold;">
-            {% for message in success_messages %}
-                {{ message }}<br>
-            {% endfor %}
-        </div>
-        {% endif %}
-        <div class="whiteB">
-            <form action="{% url 'app_album:event_addition' %}" method="post" id="image-form" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="text" name="event_tag" placeholder="イベントタグを入力">
-                <br>
-                
-                <input type="file" name="images[]" id="image-input" multiple accept="image/*">
-                
-                <input type="submit" value="アップロード" class="button">
-            </form>
-        </div>
-        <div id="image-preview"></div>
+    <form action="{% url 'app_album:event_addition' %}" method="post" id="image-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="event_tag" placeholder="イベントタグを入力">
+        <input type="file" name="images[]" id="image-input" multiple accept="image/*">
+        <input type="submit" onclick="startUpload()" value="アップロード">
+    </form>
+            {% if success_messages %}
+    <div style="color: green; font-weight: bold;">
+        {% for message in success_messages %}
+            {{ message }}<br>
+        {% endfor %}
     </div>
+    {% endif %}
+
+    <div id="upload-message">アップロード中...</div>
+    <div id="image-preview"></div>
 
     <script>
         function handleFileSelect(event) {
@@ -96,10 +104,18 @@
                 reader.readAsDataURL(file);
             }
         }
+        function startUpload() {
+            const uploadMessage = document.getElementById('upload-message');
+            uploadMessage.style.display = 'block'; // アップロード中メッセージを表示
 
-        // ファイルが選択されたらプレビューを更新
-        const imageInput = document.getElementById('image-input');
-        imageInput.addEventListener('change', handleFileSelect);
+            // ファイルが選択されたらプレビューを更新
+            const imageInput = document.getElementById('image-input');
+            imageInput.addEventListener('change', handleFileSelect);
+
+            // ここでフォームを送信するか、Ajaxを使用してサーバーにデータを送信するなどの処理を実行します
+            // この例ではフォームを送信することにします
+            const imageForm = document.getElementById('image-form');
+            imageForm.submit();
+        }
     </script>
 </body>
-
