@@ -67,55 +67,59 @@
 
 <h1 style="color: white;">イベント写真の追加</h1>
 <body>
-    <form action="{% url 'app_album:event_addition' %}" method="post" id="image-form" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="text" name="event_tag" placeholder="イベントタグを入力">
-        <input type="file" name="images[]" id="image-input" multiple accept="image/*">
-        <input type="submit" onclick="startUpload()" value="アップロード">
-    </form>
-            {% if success_messages %}
-    <div style="color: green; font-weight: bold;">
-        {% for message in success_messages %}
-            {{ message }}<br>
-        {% endfor %}
+    <div class="maincss">
+        <div class="whiteB">
+            <form action="{% url 'app_album:event_addition' %}" method="post" id="image-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" name="event_tag" placeholder="イベントタグを入力">
+                <input type="file" name="images[]" id="image-input" multiple accept="image/*">
+                <input type="submit" onclick="startUpload()" value="アップロード">
+            </form>
+                    {% if success_messages %}
+            <div style="color: green; font-weight: bold;">
+                {% for message in success_messages %}
+                    {{ message }}<br>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div id="upload-message">アップロード中...</div>
+            <div id="image-preview"></div>
+
+            <script>
+                function handleFileSelect(event) {
+                    const previewContainer = document.getElementById('image-preview');
+                    previewContainer.innerHTML = ''; // プレビューをクリア
+
+                    const files = event.target.files;
+                    for (const file of files) {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.classList.add('preview-image');
+
+                            previewContainer.appendChild(img);
+                        };
+
+                        reader.readAsDataURL(file);
+                    }
+                }
+                function startUpload() {
+                    const uploadMessage = document.getElementById('upload-message');
+                    uploadMessage.style.display = 'block'; // アップロード中メッセージを表示
+
+                    // ファイルが選択されたらプレビューを更新
+                    const imageInput = document.getElementById('image-input');
+                    imageInput.addEventListener('change', handleFileSelect);
+
+                    // ここでフォームを送信するか、Ajaxを使用してサーバーにデータを送信するなどの処理を実行します
+                    // この例ではフォームを送信することにします
+                    const imageForm = document.getElementById('image-form');
+                    imageForm.submit();
+                }
+            </script>
+        </div>
     </div>
-    {% endif %}
-
-    <div id="upload-message">アップロード中...</div>
-    <div id="image-preview"></div>
-
-    <script>
-        function handleFileSelect(event) {
-            const previewContainer = document.getElementById('image-preview');
-            previewContainer.innerHTML = ''; // プレビューをクリア
-
-            const files = event.target.files;
-            for (const file of files) {
-                const reader = new FileReader();
-
-                reader.onload = function (e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.classList.add('preview-image');
-
-                    previewContainer.appendChild(img);
-                };
-
-                reader.readAsDataURL(file);
-            }
-        }
-        function startUpload() {
-            const uploadMessage = document.getElementById('upload-message');
-            uploadMessage.style.display = 'block'; // アップロード中メッセージを表示
-
-            // ファイルが選択されたらプレビューを更新
-            const imageInput = document.getElementById('image-input');
-            imageInput.addEventListener('change', handleFileSelect);
-
-            // ここでフォームを送信するか、Ajaxを使用してサーバーにデータを送信するなどの処理を実行します
-            // この例ではフォームを送信することにします
-            const imageForm = document.getElementById('image-form');
-            imageForm.submit();
-        }
-    </script>
 </body>
