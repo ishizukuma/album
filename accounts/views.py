@@ -13,7 +13,7 @@ class IndexView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) # 継承元のメソッドCALL
-        context["form_name"] = "top"
+        context["form_name"] = "view"
         return context
 
 

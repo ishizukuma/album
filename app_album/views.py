@@ -14,9 +14,6 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 # スタート
-class IndexView(generic.TemplateView,LoginRequiredMixin,View):
-    template_name = "top.html"
-    login_url = reverse_lazy("accounts:index")
 
 class Mail_sendView(generic.TemplateView,LoginRequiredMixin):
     template_name = "mail_send.html"
