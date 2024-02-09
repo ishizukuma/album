@@ -1,8 +1,6 @@
-# from django.shortcuts import render
 from django.views import generic
 from django.views import View
 from django.shortcuts import render,redirect
-from .models import Photo
 from .models import Message
 from django.http import HttpResponse
 from .models import Photo, S3Model
@@ -13,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from .forms import MessageForm
 # スタート
 
 class Mail_sendView(generic.TemplateView,LoginRequiredMixin):
@@ -152,9 +151,6 @@ class ViewView(generic.TemplateView,LoginRequiredMixin):
                 return redirect('success_page')
         return render(request, 'view.html')
 
-
-from .forms import MessageForm
-
 class NoticeView(LoginRequiredMixin, View):
     template_name = "notice.html"
     login_url = reverse_lazy("accounts:index")
@@ -167,9 +163,16 @@ class NoticeView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         form = MessageForm(request.POST)
         if form.is_valid():
-            Message.objects.create(content=form.cleaned_data['content'])
-        messages = Message.objects.all()
-        return render(request, self.template_name, {'messages': messages, 'form': form})
+            # メッセージが正常に保存された場合
+            # ログインユーザーの名前を取得してメッセージに関連付ける
+            message = form.save(commit=False)
+            message.name = request.user.username
+            message.save()
+            return redirect('app_album:notice')
+        else:
+            # フォームが無効な場合は再びフォームを表示
+            messages = Message.objects.all()
+            return render(request, self.template_name, {'messages': messages, 'form': form})
 
 class Password_ResetView(generic.TemplateView,LoginRequiredMixin):
     template_name = "password_reset.html"
@@ -179,10 +182,3 @@ class Password_ResetView(generic.TemplateView,LoginRequiredMixin):
 class Password_changeView(generic.TemplateView,LoginRequiredMixin):
     template_name = "password_change.html"
     login_url = reverse_lazy("accounts:index")
-
-def send_message(request):
-    if request.method == 'POST':
-        content = request.POST.get('content', '')
-        if content.strip():  # 空でないメッセージの場合のみ保存
-            Message.objects.create(content=content)
-    return redirect('app_album:notice')  # チャット画面にリダイレクト

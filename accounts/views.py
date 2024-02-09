@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class IndexView(TemplateView):
     """ ホームビュー """
     template_name = "index.html"
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) # 継承元のメソッドCALL
         context["form_name"] = "view"
@@ -20,7 +20,7 @@ class IndexView(TemplateView):
 class SignupView(CreateView):
     """ ユーザー登録用ビュー """
     form_class = SignUpForm # 作成した登録用フォームを設定
-    template_name = "accounts/signup.html" 
+    template_name = "accounts/signup.html"
     success_url = reverse_lazy("accounts:index") # ユーザー作成後のリダイレクト先ページ
 
     def form_valid(self, form):
@@ -30,14 +30,14 @@ class SignupView(CreateView):
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password1")
         user_type = form.cleaned_data.get("user_type", None)
-        
+
           # ユーザータイプが "admin" の場合はエラーとする
         if user_type == 0:
             form.add_error("user_type", "Invalid user type.")
             return self.form_invalid(form)
-        
+
         # ユーザー作成後にそのままログイン状態にする設定
-        response = super().form_valid(form) 
+        response = super().form_valid(form)
         email = form.cleaned_data.get("email")
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password1")
@@ -51,11 +51,11 @@ class SignupView(CreateView):
 class LoginView(BaseLoginView):
     form_class = LoginFrom
     template_name = "accounts/login.html"
-    
+
 class LogoutView(BaseLogoutView):
     success_url = reverse_lazy("accounts:index")
-    
-    
+
+
 class PasswordChange(LoginRequiredMixin, PasswordChangeView):
     """パスワード変更ビュー"""
     success_url = reverse_lazy('accounts:password_change_done')
@@ -73,7 +73,7 @@ class PasswordChangeDone(LoginRequiredMixin,PasswordChangeDoneView):
 
 ## ここから追加
 
-    
+
 
 class PasswordReset(PasswordResetView):
     """パスワード変更用URLの送付ページ"""
