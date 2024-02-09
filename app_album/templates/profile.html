@@ -3,12 +3,10 @@
 <h1>プロフィール</h1>
 <form action="更新するpy">
   <img src=""><!--個人の写真-->
-  <p>クラス:</p>
-  <p>番号:</p>
-  <p>名前:</p>
+  <p>名前:{{ request.user}}</p>
   <p>
     メールアドレス:
-    <input type="email" name="" value="DBにあるメールアドレス">
+    <input type="email" name="" value="{{request.user.email}}">
   </p>
   <p>
     <a href="{% url 'accounts:password_change' %}" class="user-icon">パスワード変更</a>
