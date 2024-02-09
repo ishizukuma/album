@@ -1,35 +1,68 @@
 {% include 'header.html' %}
 {% include 'menubar.html' %}
 <link rel="stylesheet" type="text/css" href="https://sotsukenalbum.s3.amazonaws.com/media/static/css/styles.css"><style>
-    /* チャットボックス全体のスタイル */
-    .chat-box {
-    max-width: 400px;
-    margin: 10px auto;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #f1f0f0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /*吹き出し*/
+    .balloon{
+    margin: 30px 0;
+    display:flex;
+    justify-content: flex-start;
+    align-items: flex-start; /*縦位置を上揃え*/
+    /*   align-items: center; */ /*縦位置を真ん中揃え*/
     }
-
-    /* メッセージのスタイル */
-    .message {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+    .balloon_l{
+    justify-content:flex-end;
+    float:right;
     }
-
-    /* 送信者のメッセージのスタイル */
-    .sender {
-    background-color: #4CAF50;
-    color: white;
-    float: right;
+    .balloon_r{
+    justify-content:flex-end;
+    float:left;
     }
-
-    /* 受信者のメッセージのスタイル */
-    .receiver {
-    background-color: #ddd;
-    color: black;
-    float: left;
+    .faceicon {
+        width: 80px;
+        height: auto;
+        margin-right: 10px; /* ユーザー名とメッセージの間隔を調整 */
+    }
+    .balloon_r .faceicon{
+    margin-left:25px;
+    }
+    .balloon_l .faceicon{
+    margin-right:25px;
+    }
+    .balloon_r .faceicon{
+    order:2 !important;
+    }
+    .says {
+    max-width:400px; /*最大幅は任意*/
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 17px 13px 15px 18px;
+    border-radius: 12px;
+    background: #99dddd;/*色は任意*/
+    box-sizing:border-box;
+    margin:0 !important;
+    line-height:1.5;
+    /*   align-items: center; */
+    }
+    .says p{
+    margin:8px 0 0 !important;
+    }
+    .says p:first-child{
+    margin-top:0 !important;
+    }
+    .says:after {
+    content: "";
+    position: absolute;
+    border: 10px solid transparent;
+    /*   margin-top:-3px;  */
+    }
+    .balloon_l .says:after {
+    left: -26px;
+    border-right: 22px solid #99dddd;
+    }
+    .balloon_r .says:after {
+    right: -26px;
+    border-left: 22px solid #99dddd;
     }
 
     /* タイムスタンプのスタイル */
@@ -59,18 +92,20 @@
 </style>
 <h1>お知らせ</h1>
 
-<div id="chatBox" class="chat-box">
+<div id="balloon" class="balloon">
     {% for message in messages %}
-        <div class="message {% if message.user == request.user %}sender{% else %}receiver{% endif %}">
-            {{ message.user.username }}: {{ message.content }}
-            <div class="timestamp">{{ message.timestamp }}</div>
+            <div class="message {% if message.user == request.user %}sender{% else %}receiver{% endif %}">
+            <p class="faceicon">{{ message.name }}</p>
+            <p class="says">{{ message.content }}
+            <div class="timestamp">{{ message.timestamp }}</div></p>
         </div>
     {% endfor %}
 </div>
 
+
 <form method="post" action="{% url 'app_album:notice' %}" class="input-area" onsubmit="return sendMessage();">
     {% csrf_token %}
-    <input type="text" id="messageInput" name="content" placeholder="Type your message..." required>
+    <input type="text" id="messageInput" name="content" placeholder="コメントを入力!!" required>
     <input type="submit" value="送信" class="send-button">
 </form>
 

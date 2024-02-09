@@ -24,7 +24,7 @@
 <div class="h1">ログイン</div>
 {% endblock %}
 {% block content %}
-<form method="post">
+<form action="{% url 'app_album:view' %}" method="post">
     {% csrf_token %}
     {{ form.non_field_errors }}
     {% for field in form %}

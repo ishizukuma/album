@@ -56,8 +56,9 @@ class S3Model(models.Model):
         super().save(*args, **kwargs)
 
 class Message(models.Model):
+    name = models.CharField(max_length=100, blank=True, null=True)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Message: {self.content}"
+        return f"Message from {self.name}: {self.content}"
