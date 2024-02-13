@@ -83,12 +83,12 @@ WSGI_APPLICATION = 'album.wsgi.application'
 # データベース設定
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'album',
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'app_album',
+        'HOST': 'database-1.cd0ee22yck50.ap-northeast-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
