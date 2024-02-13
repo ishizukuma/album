@@ -4,7 +4,6 @@ from . import views
 
 app_name = 'app_album'
 urlpatterns = [
-    path('', views.IndexView.as_view(), name="top"),
     
     # 新規登録
     path('mail_send/', views.Mail_sendView.as_view(), name="mail_send"),
