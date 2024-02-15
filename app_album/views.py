@@ -14,23 +14,23 @@ from django.conf import settings
 from .forms import MessageForm
 # スタート
 
-class Mail_sendView(generic.TemplateView,LoginRequiredMixin):
+class Mail_sendView(LoginRequiredMixin,generic.TemplateView):
     template_name = "mail_send.html"
     login_url = reverse_lazy("accounts:index")
 # 作成
-class Create_menuView(generic.TemplateView,LoginRequiredMixin):
+class Create_menuView(LoginRequiredMixin,generic.TemplateView):
     template_name = "create_menu.html"
     login_url = reverse_lazy("accounts:index")
 
-class Teacher_informationView(generic.TemplateView,LoginRequiredMixin):
+class Teacher_informationView(LoginRequiredMixin,generic.TemplateView):
     template_name = "teacher_information.html"
     login_url = reverse_lazy("accounts:index")
 
-class Class_informationView(generic.TemplateView,LoginRequiredMixin):
+class Class_informationView(LoginRequiredMixin,generic.TemplateView):
     template_name = "class_information.html"
     login_url = reverse_lazy("accounts:index")
 
-class Event_additionView(View,LoginRequiredMixin):
+class Event_additionView(LoginRequiredMixin,View):
     template_name = "event_addition.html"
     login_url = reverse_lazy("accounts:index")
 
@@ -63,7 +63,7 @@ class Event_additionView(View,LoginRequiredMixin):
         request.session['success_messages'] = ['アップロードが成功しました。']
         return redirect('app_album:event_addition')
 
-class Video_additionView(generic.TemplateView,LoginRequiredMixin):
+class Video_additionView(LoginRequiredMixin,generic.TemplateView):
     template_name = "video_addition.html"
     login_url = reverse_lazy("accounts:index")
 
@@ -96,16 +96,16 @@ class Video_additionView(generic.TemplateView,LoginRequiredMixin):
         request.session['success_messages'] = ['アップロードが成功しました。']
         return redirect('app_album:video_addition')
 
-class Year_inputView(generic.TemplateView,LoginRequiredMixin):
+class Year_inputView(LoginRequiredMixin,generic.TemplateView):
     template_name = "year_input.html"
     login_url = reverse_lazy("accounts:index")
 
-class ProfileView(generic.TemplateView,LoginRequiredMixin):
+class ProfileView(LoginRequiredMixin,generic.TemplateView):
     template_name = "profile.html"
     login_url = reverse_lazy("accounts:index")
 
 
-class ViewView(generic.TemplateView,LoginRequiredMixin):
+class ViewView(LoginRequiredMixin,generic.TemplateView):
     template_name = "view.html"
     login_url = reverse_lazy("accounts:index")
 
@@ -174,11 +174,11 @@ class NoticeView(LoginRequiredMixin, View):
             messages = Message.objects.all()
             return render(request, self.template_name, {'messages': messages, 'form': form})
 
-class Password_ResetView(generic.TemplateView,LoginRequiredMixin):
+class Password_ResetView(LoginRequiredMixin,generic.TemplateView):
     template_name = "password_reset.html"
     login_url = reverse_lazy("accounts:index")
 
 
-class Password_changeView(generic.TemplateView,LoginRequiredMixin):
+class Password_changeView(LoginRequiredMixin,generic.TemplateView):
     template_name = "password_change.html"
     login_url = reverse_lazy("accounts:index")

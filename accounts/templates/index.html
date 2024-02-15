@@ -65,11 +65,11 @@
             {% block content %}
             {% if user.is_authenticated %}
             <div class="h6">おかえりなさい{{ user.username }}さん</div>
-            <a href="{% url 'accounts:logout' %}" class="button">ログアウト</a>
+            <a href="{% url 'account_logout' %}" class="button">ログアウト</a>
             <a href="{% url 'app_album:view' %}" class="button">閲覧画面へ</a>
             {% else %}
             <a href="{% url 'accounts:signup' %}" class="button">アカウント作成</a>
-            <a href="{% url 'accounts:login' %}" class="button">ログイン</a>
+            <a href="{% url 'account_login' %}" class="button">ログイン</a>
             {% endif %}
         </div>
     </div>

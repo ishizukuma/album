@@ -40,10 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'app_album.apps.AppAlbumConfig',
-    'accounts'
+    'accounts',
+    
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    
 ]
 
 AUTH_USER_MODEL = "accounts.User" # カスタムユーザーを認証用ユーザーとして登録
+
 
 
 MIDDLEWARE = [
@@ -54,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'album.urls'
@@ -200,17 +208,36 @@ MEDIA_URL = f'{AWS_S3_PUBLIC_URL}media/'
 STATIC_URL = f'{AWS_S3_PUBLIC_URL}static/'
 
 
-LOGIN_REDIRECT_URL = "app_album:view"
-LOGOUT_REDIRECT_URL = "accounts:index"
+SITE_ID = 1
 
-#メールアドレス設定
-# settings.py
+AUTHENTICATION_BACKENDS = [
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    
+]
+
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'system@example.com'
+
+# メールアドレス認証に変更する設定
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+
+# # ログイン/ログアウト後の遷移先を設定
+LOGIN_REDIRECT_URL = 'app_album:view'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'accounts:index'
+
+# # ログアウトリンクのクリック一発でログアウトする設定
+ACCOUNT_LOGOUT_ON_GET = True
+
+# # django-allauthが送信するメールの件名に自動付与される接頭辞をブランクにする設定
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+
+# パスワードリセットメールの有効化
+ACCOUNT_PASSWORD_RESET_EMAIL = True
+
+
+# デフォルトのメール送信元を設定
+DEFAULT_FROM_EMAIL = ""

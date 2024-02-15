@@ -1,7 +1,0 @@
-<!-- accounts/mail_template/reset/message.txt -->
-
-To reset your password, click on the following link:
-
-{% url 'accounts:password_reset_confirm' uidb64=uid token=token %}
-
-If you didn't request a password reset, please ignore this email.

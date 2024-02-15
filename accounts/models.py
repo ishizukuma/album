@@ -4,14 +4,6 @@ from django.contrib.auth.models import (BaseUserManager,
                                         PermissionsMixin)
 from django.utils.translation import gettext_lazy as _
 
-USER_TYPE_CHOICES = [
-    (0, 'admin'),
-    (1, 'student'),
-    (2, 'teacher'),
-]
-
-
-
 class UserManager(BaseUserManager):
     def _create_user(self, email, username, password, user_type=1 or 2, **extra_fields):
         email = self.normalize_email(email)
@@ -48,6 +40,13 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    
+    USER_TYPE_CHOICES = [
+    (0, 'admin'),
+    (1, 'student'),
+    (2, 'teacher'),
+]
+
 
     email = models.EmailField(
         verbose_name=_("email"),
@@ -96,4 +95,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
-
