@@ -1,7 +1,7 @@
 {% include 'header.html' %}
 {% include 'menubar.html' %}
 <h1>プロフィール</h1>
-<form action="更新するpy">
+<form action="">
   <img src=""><!--個人の写真-->
   <p>名前:{{ request.user}}</p>
   <p>
@@ -11,6 +11,5 @@
   <p>
     <a href="{% url 'accounts:password_change' %}" class="user-icon">パスワード変更</a>
   </p>
-  <input type="button" name="" value="更新">
 </form>
 {% include 'footer.html' %}
